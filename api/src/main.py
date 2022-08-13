@@ -4,14 +4,14 @@ from pyknp import Juman
 
 app = FastAPI()
 
+from src.default.route import default_router
+
 
 class Keyword(BaseModel):
     name: str
 
 
-@app.get("/")
-async def default():
-    return {"status": "success", "message": "Hello, world!"}
+app.include_router(default_router)
 
 
 @app.post("/jumanpp")
