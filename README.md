@@ -1,2 +1,3 @@
 # movie-logger
-Notionと連携した映画録
+
+Notion と連携した映画録
