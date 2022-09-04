@@ -5,11 +5,11 @@
   "python.linting.lintOnSave": true,
   "editor.formatOnSave": true,
   "python.formatting.provider": "black",
-  "python.formatting.blackArgs": ["--line-length=79"],
+  "python.formatting.blackArgs": ["--line-length=120"],
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "python.linting.flake8Args": ["--ignore=E402"],
+  "python.linting.flake8Args": ["--ignore=E402", "--max-line-length=120"],
   "autoDocstring.docstringFormat": "numpy",
   "[python]": {
     "editor.tabSize": 4,
