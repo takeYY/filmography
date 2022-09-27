@@ -11,6 +11,8 @@
   },
   "python.linting.flake8Args": ["--ignore=E402", "--max-line-length=120"],
   "autoDocstring.docstringFormat": "numpy",
+  "plantuml.exportOutDir": "./",
+  "plantuml.exportSubFolder": false,
   "[python]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
