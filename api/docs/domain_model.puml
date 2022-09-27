@@ -1,0 +1,101 @@
+@startuml movie_logger_domain_model
+title MovieLogegerのドメインモデル図
+
+package 映画 {
+  ' MODEL '
+  entity MovieWannaWatch {
+    {static} tmdb_ID
+    タイトル
+    カバー
+    ジャンル
+    ノート
+  }
+
+  entity MovieWatched {
+    {static} tmdb_ID
+    タイトル
+    カバー
+    評価
+    視聴回数
+    ジャンル
+    初鑑賞日
+    最終鑑賞日
+    ノート
+  }
+
+  entity Movie {
+    {static} tmdb_ID
+    タイトル
+    カバー
+    ステータス
+    notion_ID
+    作成日
+  }
+
+  object TmdbObject {
+    ID
+  }
+
+  enum Status {
+    Watched
+    Wanna_Watch
+  }
+
+  entity MovieGenre{
+    tmdb_ID
+    genre
+  }
+
+  enum Genre {
+    action
+    adventure
+    animation
+    comedi
+    crime
+    documentary
+    drama
+    family
+    fantasy
+    history
+    horror
+    music
+    mystery
+    romance
+    SF
+    TV
+    thriller
+    war
+    western
+  }
+
+
+  ' RELATION '
+  Movie "*" -- "1" MovieWannaWatch
+  Movie "*" -- "1" MovieWatched
+
+  TmdbObject "1" -- "*" Movie::tmdb_ID
+  TmdbObject "1" -- "1" MovieWannaWatch::tmdb_ID
+  TmdbObject "1" -- "1" MovieWatched::tmdb_ID
+
+  Status "1" -- "1" Movie::ステータス
+
+  MovieGenre::genre "1" -- "1" Genre
+  MovieGenre "*" -- "1" MovieWannaWatch::ジャンル
+  MovieGenre "*" -- "1" MovieWatched::ジャンル
+
+
+  ' NOTE '
+  note as note_Movie
+    Movieを作成後に追加で作成
+  end note
+  note_Movie .. MovieWannaWatch
+  note_Movie .. MovieWatched
+}
+
+package 単語 {
+  class Word {
+    対象
+  }
+}
+
+@enduml
