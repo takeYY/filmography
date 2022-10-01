@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "movie-logger-api"
+version = "0.1.0"
+description = ""
+authors = ["takeYY <t0k6yist@gmail.com>"]
+readme = "README.md"
+packages = [{include = "movie_logger_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.85.0"
+uvicorn = "^0.18.3"
+requests = "^2.28.1"
+notion-client = "^1.0.0"
+pandas = "^1.5.0"
+pyknp = "0.6.1"
+pytest = "^7.1.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
