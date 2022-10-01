@@ -18,5 +18,5 @@
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "ms-python.python"
   },
-  "cSpell.words": ["fastapi", "jumanpp"]
+  "cSpell.words": ["fastapi", "Inmemory", "jumanpp"]
 }
