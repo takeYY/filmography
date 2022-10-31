@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from logging import getLogger
 
 from src.domain.movie.movie_repository import IMovieRepository
 
@@ -19,13 +20,16 @@ class ImplMovieQueryApplication(IMovieQueryApplication):
         self,
         movie_repository: IMovieRepository,
     ):
-        print("movie query application init")
+        logger = getLogger(__name__)
+        logger.info("movie query application init")
         self.movie_repository: IMovieRepository = movie_repository
 
     async def fetch_movie_by_id(self, id: str) -> dict[str, str]:
+        logger = getLogger(__name__)
         try:
-
+            logger.info(f"fetch movie by {id}: start")
             movie = self.movie_repository.find_by_id(id=id)
+            logger.info(f"fetch movie by {id}: done")
 
             return dict(
                 status="success",
