@@ -3,6 +3,7 @@ from src.application.movie.query.movie_query_application import IMovieQueryAppli
 from src.domain.movie.movie_repository import IMovieRepository
 from src.infrastructure.movie.inmemory_movie_repository import ImplInmemoryMovieRepository
 from src.infrastructure.movie.movie_repository import ImplMovieRepository
+from src.utils.setup_logger import setup_logger
 
 movie_query_router = APIRouter()
 
@@ -28,15 +29,16 @@ async def movie_query(
     movie_id: str,
     movie_query_application: IMovieQueryApplication = Depends(movie_query_application),
 ):
+    logger = setup_logger(__name__)
     try:
-        print("movie query start")
+        logger.info("movie query start")
         if not movie_id:
             raise ValueError("movie_id がありません。")
         response = await movie_query_application.fetch_movie_by_id(id=movie_id)
 
         return response
     except Exception as e:
-        print(e)
+        logger.error(f"movie query error. LOG: {e}", exc_info=True)
         return dict(
             status="error",
             result=e,
