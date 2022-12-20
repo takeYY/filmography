@@ -1,0 +1,25 @@
+@startmindmap fig_mindmap
+
+title MovieLoggerのマインドマップ
+
+* Movie
+  ** id
+  ** title
+  ** overview
+  ** poster_path
+  ** tmdb_id
+  ** Genre[]
+    *** id
+    *** name
+  ** MovieNote
+    *** id
+    *** evaluation
+    *** note
+    *** status
+  ** WatchHistory[]
+    *** id
+    *** created_on
+  ** created_at
+  ** updated_at
+
+@endmindmap
