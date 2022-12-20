@@ -1,35 +1,38 @@
-@startuml movie_logger_domain_model
-title MovieLogegerのドメインモデル図
+@startuml fig_domain_model
+title MovieLoggerのドメインモデル図
 
 package 映画 {
   ' MODEL '
-  entity MovieWannaWatch {
-    {static} tmdb_ID
-    タイトル
-    カバー
-    ジャンル
-    ノート
-  }
-
-  entity MovieWatched {
-    {static} tmdb_ID
-    タイトル
-    カバー
-    評価
-    視聴回数
-    ジャンル
-    初鑑賞日
-    最終鑑賞日
-    ノート
+  object MovieObject {
+    ID
   }
 
   entity Movie {
-    {static} tmdb_ID
+    {static} 映画ID
     タイトル
+    概要
     カバー
-    ステータス
-    notion_ID
+    公開日
+    上映時間
+    シリーズ
     作成日
+    更新日
+    {static} TMDb_ID
+
+    作成()
+    更新()
+  }
+
+  entity MovieNote {
+    {static} 映画ID
+    鑑賞状況
+    評価
+    ノート
+  }
+
+  entity MovieSeries {
+    {static} シリーズID
+    シリーズ名
   }
 
   object TmdbObject {
@@ -42,8 +45,8 @@ package 映画 {
   }
 
   entity MovieGenre{
-    tmdb_ID
-    genre
+    {static} TMDb_ID
+    ジャンル
   }
 
   enum Genre {
@@ -69,27 +72,23 @@ package 映画 {
   }
 
 
+
+  ' Note '
+  ' ???
+
+
   ' RELATION '
-  Movie "*" -- "1" MovieWannaWatch
-  Movie "*" -- "1" MovieWatched
+  Movie::映画ID "1" -- "1" MovieObject::ID
+  Movie::TMDb_ID "1" -- "1" TmdbObject::ID
 
-  TmdbObject "1" -- "*" Movie::tmdb_ID
-  TmdbObject "1" -- "1" MovieWannaWatch::tmdb_ID
-  TmdbObject "1" -- "1" MovieWatched::tmdb_ID
+  MovieNote::映画ID "1" -- "1" MovieObject::ID
 
-  Status "1" -- "1" Movie::ステータス
+  Status "1" -- "1" MovieNote::鑑賞状況
 
-  MovieGenre::genre "1" -- "1" Genre
-  MovieGenre "*" -- "1" MovieWannaWatch::ジャンル
-  MovieGenre "*" -- "1" MovieWatched::ジャンル
+  MovieGenre::TMDb_ID "*" -- "1" TmdbObject::ID
+  MovieGenre::ジャンル "*" -- "1" Genre
 
-
-  ' NOTE '
-  note as note_Movie
-    Movieを作成後に追加で作成
-  end note
-  note_Movie .. MovieWannaWatch
-  note_Movie .. MovieWatched
+  MovieSeries::シリーズID "1" -- "*" Movie::シリーズ
 }
 
 package 単語 {

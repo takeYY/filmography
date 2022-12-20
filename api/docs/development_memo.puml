@@ -1,0 +1,84 @@
+@startuml fig_development_memo
+title MovieLoggerの開発メモ
+
+note as Idea
+  ●必要そうな映画情報
+  - [x] 映画タイトル
+  - [x] カバー画像のURL
+  - [x] ジャンル
+  - [x] 公開日
+  - [x] 上映時間
+  - [x] 概要
+  - [ ] クレジット
+  - [x] 鑑賞状況
+  - [x] シリーズもの (シリーズIDなどで管理?, スピンオフは含むか?)
+  - [x] 感想等
+  - [ ] 鑑賞日
+  - [ ] 鑑賞回数
+  - [ ] 最後に鑑賞した日
+  - [ ] 鑑賞媒体 (Amazon Prime, Netflix, etc...)
+  - [x] 自分の評価
+  - [ ] 殿堂入り (自分にとってとてつもなく影響を受けたなどで入る)
+  - [ ] おすすめ度 (他の人にお勧めできるか, 3段階くらいで評価)
+  - [ ] 収益
+end note
+
+
+note as Database
+  Notionのデータベース
+  ●Movie
+  - id
+  - title
+  - overview
+  - genres: relation Genre
+  - watch_history: relation WatchHistory
+  - poster_path
+  - note
+  - created_at
+  - updated_at
+  - tmdb_id
+
+  ●Drama
+  - id
+  - title
+  - overview
+  - genres: relation Genre
+  - poster_path
+  - created_at
+  - updated_at
+  - tmdb_id
+
+  ●Anime
+  - id
+  - title
+  - overview
+  - genres: relation Genre
+  - poster_path
+  - created_at
+  - updated_at
+  - tmdb_id
+
+  ●Genre
+  - id
+  - name
+  - movies: relation Movie
+
+  ●MovieCreditTitle
+  - id
+  - movie_id
+  - credit_id
+
+  ●CreditTitle
+  - id
+  - name
+  - birthday
+  - gender
+  - profile_path
+
+  ●WatchHistory
+  - id
+  - movie: relation Movie
+  - created_on
+end note
+
+@enduml
