@@ -2,27 +2,32 @@
 title MovieLoggerのドメインモデル図
 
 package 映画 {
-  ' MODEL '
+  ' Movie MODEL '
+  '' ValueObject ''
   object MovieObject {
     ID
   }
+  object TmdbObject {
+    ID
+  }
 
+  '' Movie Entity ''
   entity Movie {
     {static} 映画ID
     タイトル
     概要
-    カバー
+    ポスター
     公開日
     上映時間
     シリーズ
+    ジャンル
+    {static} TMDb_ID
     作成日
     更新日
-    {static} TMDb_ID
 
     作成()
     更新()
   }
-
   entity MovieNote {
     {static} 映画ID
     鑑賞状況
@@ -30,30 +35,58 @@ package 映画 {
     ノート
   }
 
-  entity MovieSeries {
-    {static} シリーズID
-    シリーズ名
+
+  ' Movie Note ' 
+  ' ???
+
+
+  ' Movie RELATION '
+  Movie::映画ID "1" -[#Blue]- "1" MovieObject::ID
+  Movie::TMDb_ID "1" -[#Blue]- "1" TmdbObject::ID
+
+  MovieNote::映画ID "1" -[#Blue]- "1" MovieObject::ID
+
+
+  package シリーズ {
+    object MovieSeriesIdObject {
+      {static} シリーズID
+    }
+
+    entity MovieSeries {
+      {static} ID
+      シリーズ名
+      シリーズポスター
+    }
   }
 
-  object TmdbObject {
-    ID
-  }
+  MovieSeries "1" -- "*" Movie::シリーズ
+  MovieSeries::ID "1" -- "1" MovieSeriesIdObject::シリーズID
+}
 
-  enum Status {
+
+
+
+package 鑑賞状況 {
+  enum AppreciationStatus {
     Watched
     Wanna_Watch
   }
 
-  entity MovieGenre{
-    {static} TMDb_ID
-    ジャンル
-  }
+  AppreciationStatus "1" -- "1" MovieNote::鑑賞状況
+}
 
-  enum Genre {
+
+
+
+package ジャンル {
+  object GenreIdObject {
+    {static} ジャンルID
+  }
+  object Genre {
     action
     adventure
     animation
-    comedi
+    comedy
     crime
     documentary
     drama
@@ -71,25 +104,23 @@ package 映画 {
     western
   }
 
-
-
-  ' Note '
-  ' ???
-
-
-  ' RELATION '
-  Movie::映画ID "1" -- "1" MovieObject::ID
-  Movie::TMDb_ID "1" -- "1" TmdbObject::ID
-
-  MovieNote::映画ID "1" -- "1" MovieObject::ID
-
-  Status "1" -- "1" MovieNote::鑑賞状況
-
-  MovieGenre::TMDb_ID "*" -- "1" TmdbObject::ID
-  MovieGenre::ジャンル "*" -- "1" Genre
-
-  MovieSeries::シリーズID "1" -- "*" Movie::シリーズ
+  GenreIdObject -- Genre
+  GenreIdObject::ジャンルID "*" -[#Red]- "*" Movie::ジャンル
 }
+
+
+
+
+package ポスター {
+  object PosterObject {
+    ポスターのパス
+  }
+
+  PosterObject::ポスターのパス "1" -- "1" Movie::ポスター
+}
+
+
+
 
 package 単語 {
   class Word {
