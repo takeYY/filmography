@@ -3,7 +3,13 @@ from dataclasses import dataclass
 
 @dataclass(init=False, eq=True, frozen=True)
 class TmdbIdObject:
-    """TMDb ID を扱う値オブジェクト"""
+    """TMDb ID を扱う値オブジェクト
+
+    Attributes
+    ----------
+    value: int
+        TMDb ID
+    """
 
     value: int
 
