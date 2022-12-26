@@ -9,7 +9,7 @@ from src.domain.movie.tmdb_id_object import TmdbIdObject
 from src.domain.poster.poster_object import PosterObject
 
 
-class TestMovie:
+class TestMovieEntity:
     def test_constructor_should_create_instance(self):
         movie = MovieEntity(
             movie_id=MovieIdObject(value=1),
