@@ -33,7 +33,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd ./api
-          poetry install --no-interaction
+          poetry install --no-interaction --no-root
       # pytest を実行
       - name: Run Tests
         run: poetry run pytest
