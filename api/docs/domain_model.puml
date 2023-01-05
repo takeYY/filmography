@@ -21,6 +21,7 @@ package 映画 {
     上映時間
     シリーズ
     ジャンル
+    ノート
     {static} TMDb_ID
     作成日
     更新日
@@ -28,15 +29,9 @@ package 映画 {
     作成()
     更新()
   }
-  entity MovieNote {
-    {static} 映画ID
-    鑑賞状況
-    評価
-    ノート
-  }
 
 
-  ' Movie Note ' 
+  ' Note ' 
   ' ???
 
 
@@ -44,7 +39,6 @@ package 映画 {
   Movie::映画ID "1" -[#Blue]- "1" MovieObject::ID
   Movie::TMDb_ID "1" -[#Blue]- "1" TmdbObject::ID
 
-  MovieNote::映画ID "1" -[#Blue]- "1" MovieObject::ID
 
 
   package シリーズ {
@@ -118,6 +112,19 @@ package ポスター {
 
   PosterObject::ポスターのパス "1" -- "1" Movie::ポスター
   MovieSeries::シリーズポスター "1" -- "1" PosterObject::ポスターのポス
+}
+
+
+
+
+package ノート {
+  entity Note {
+    鑑賞状況
+    評価
+    ノート
+  }
+
+  Note -- Movie::ノート
 }
 
 
