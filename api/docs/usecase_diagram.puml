@@ -1,0 +1,28 @@
+@startuml fig_usecase
+
+skinparam actorStyle awesome
+
+left to right direction
+
+rectangle 映画ロガー {
+  usecase "鑑賞済み映画を登録する" as UC01
+  usecase "鑑賞済み映画を更新する" as UC02
+  usecase "鑑賞したい映画をマイリストに登録する" as UC03
+  usecase "鑑賞したい映画を更新する" as UC04
+  usecase "映画情報を閲覧する" as UC05
+}
+
+rectangle Notion {
+  usecase "映画情報を閲覧する" as NUC01
+}
+
+
+:利用者: -- UC01
+:利用者: -- UC02
+:利用者: -- UC03
+:利用者: -- UC04
+:利用者: -- UC05
+
+:利用者: -- NUC01
+
+@enduml
