@@ -1,4 +1,4 @@
-@startuml fig_system_relationship
+@startuml fig_system_relation
 
 skinparam actorStyle awesome
 
