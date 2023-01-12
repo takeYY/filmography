@@ -1,0 +1,25 @@
+@startuml fig_system_relationship
+
+skinparam actorStyle awesome
+
+
+rectangle 開発するシステム {
+  "映画ロガーフロント" as (MovieLoggerFront)
+  "映画ロガーAPI" as (MovieLoggerApi)
+
+}
+
+:利用者: -- (MovieLoggerFront)
+:利用者: -- (Notion)
+
+(MovieLoggerFront) --> (MovieLoggerApi) :APIを叩く
+(MovieLoggerFront) <-- (MovieLoggerApi) :結果を返却
+(MovieLoggerApi) --> (Notion) :映画情報をNotion DBへ登録・更新
+(MovieLoggerApi) <-- (Notion) :DBから映画情報を取得
+
+note "映画ロガーページから映画情報を登録・更新する\nNotionから映画情報を閲覧する" as note01
+
+note01 .. :利用者:
+
+
+@enduml
