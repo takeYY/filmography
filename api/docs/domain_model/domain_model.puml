@@ -1,139 +1,123 @@
 @startuml fig_domain_model
 title MovieLoggerのドメインモデル図
+left to right direction
 
-package 映画 {
-  ' Movie MODEL '
-  '' ValueObject ''
-  object MovieObject {
-    ID
-  }
-  object TmdbObject {
-    ID
-  }
 
-  '' Movie Entity ''
-  entity Movie {
-    {static} 映画ID
+rectangle 鑑賞記録集約 {
+  entity 映画 {
+    __(film)__
+    {static} TMDb_ID
     タイトル
     概要
-    ポスター
     公開日
     上映時間
-    シリーズ
-    ジャンル
-    ノート
-    {static} TMDb_ID
-    作成日
-    更新日
-
-    作成()
-    更新()
   }
 
-
-  ' Note ' 
-  ' ???
-
-
-  ' Movie RELATION '
-  Movie::映画ID "1" -[#Blue]- "1" MovieObject::ID
-  Movie::TMDb_ID "1" -[#Blue]- "1" TmdbObject::ID
-
-
-
-  package シリーズ {
-    object MovieSeriesIdObject {
-      {static} シリーズID
-    }
-
-    entity MovieSeries {
-      {static} ID
-      シリーズ名
-      シリーズポスター
-    }
-  }
-
-  MovieSeries "1" -- "*" Movie::シリーズ
-  MovieSeries::ID "1" -- "1" MovieSeriesIdObject::シリーズID
-}
-
-
-
-
-package 鑑賞状況 {
-  enum AppreciationStatus {
-    Watched
-    Wanna_Watch
-  }
-
-  AppreciationStatus "1" -- "1" MovieNote::鑑賞状況
-}
-
-
-
-
-package ジャンル {
-  object GenreIdObject {
-    {static} ジャンルID
-  }
-  object Genre {
-    action
-    adventure
-    animation
-    comedy
-    crime
-    documentary
-    drama
-    family
-    fantasy
-    history
-    horror
-    music
-    mystery
-    romance
-    SF
-    TV
-    thriller
-    war
-    western
-  }
-
-  GenreIdObject -- Genre
-  GenreIdObject::ジャンルID "*" -[#Red]- "*" Movie::ジャンル
-}
-
-
-
-
-package ポスター {
-  object PosterObject {
-    ポスターのパス
-  }
-
-  PosterObject::ポスターのパス "1" -- "1" Movie::ポスター
-  MovieSeries::シリーズポスター "1" -- "1" PosterObject::ポスターのポス
-}
-
-
-
-
-package ノート {
-  entity Note {
+  entity 映画記録 {
+    __(film_record)__
+    {static} 映画記録ID
     鑑賞状況
     評価
     ノート
   }
 
-  Note -- Movie::ノート
-}
-
-
-
-
-package 単語 {
-  class Word {
-    対象
+  entity 映画鑑賞 {
+    __(film_appreciation)__
+    {static} 映画鑑賞ID
+    鑑賞媒体
+    鑑賞日
   }
+
+  object ジャンル {
+    __(genre)__
+    ジャンル名
+  }
+
+  object シリーズ {
+    __(series)__
+    シリーズ名
+    シリーズポスターURL
+  }
+
+  object ポスター {
+    __(poster)__
+    ポスターURL
+  }
+
+  object TMDb {
+    __(tmdb)__
+    ID
+  }
+
+  object 映画記録ID {
+    ID
+  }
+
+  object 映画鑑賞ID {
+    ID
+  }
+
+
+
+  映画記録 "1" *-- "0..n" 映画鑑賞
+  映画記録 "1" *-- "1" 映画
+  映画記録::映画記録ID -- 映画記録ID::ID
+
+  映画 "1" *-- "0..n" ジャンル
+  映画 "1" *-- "1" シリーズ
+  映画 "1" *-- "1" ポスター
+  映画::TMDb_ID "1" -- "1" TMDb::ID
+
+  映画鑑賞::映画鑑賞ID -- 映画鑑賞ID::ID
+
+
+
+  note as film_record_note
+    ・鑑賞状況は「未鑑賞」、「鑑賞済み」
+    ・映画鑑賞が0個の場合に未鑑賞
+    ・未鑑賞では評価できない
+    ・評価は1-5の5段階で数字が高いほど高評価
+    ・ノートは随時更新可能
+  end note
+  film_record_note -- 映画記録
+
+  note as film_appreciation_note
+    ・鑑賞媒体は「Netflix」、「劇場」など
+    ・鑑賞日は更新不可
+  end note
+  film_appreciation_note -- 映画鑑賞
+
+  note as film_note
+    ・タイトルは必須
+    ・概要はNullでも良い
+    ・上映時間は分単位
+    ・（監督やキャストの情報も追加する？）
+  end note
+  film_note -- 映画
+
+  note as genre_note
+    ジャンルは以下
+    ・アクション
+    ・アドベンチャー
+    ・アニメーション
+    ・コメディ
+    ・クライム
+    ・ドキュメンタリー
+    ・ドラマ
+    ・ファミリー
+    ・ファンタジー
+    ・ヒストリー
+    ・ホラー
+    ・音楽
+    ・ミステリー
+    ・ロマンス
+    ・SF
+    ・TV
+    ・スリラー
+    ・戦争
+    ・西部劇
+  end note
+  genre_note -- ジャンル
 }
 
 @enduml
