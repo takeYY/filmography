@@ -2,6 +2,13 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [
+    "--follow-imports=silent",
+    "--ignore-missing-imports",
+    "--show-column-numbers",
+    "--no-pretty"
+  ],
   "python.linting.lintOnSave": true,
   "editor.formatOnSave": true,
   "python.formatting.provider": "black",
@@ -18,5 +25,6 @@
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "ms-python.python"
   },
-  "cSpell.words": ["fastapi", "Inmemory", "jumanpp", "tmdb"]
+  "cSpell.words": ["fastapi", "Inmemory", "jumanpp", "tmdb", "UMCS", "pytest"],
+  "python.analysis.typeCheckingMode": "basic"
 }

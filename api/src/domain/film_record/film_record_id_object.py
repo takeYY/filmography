@@ -1,0 +1,20 @@
+from dataclasses import dataclass
+
+
+@dataclass(init=False, eq=True, frozen=True)
+class FilmRecordIdObject:
+    """映画記録 ID を扱う値オブジェクト
+
+    Attributes
+    ----------
+    value: int
+        映画記録 ID
+    """
+
+    value: int
+
+    def __init__(self, value: int):
+        if not value:
+            raise ValueError("film record ID がありません.")
+
+        object.__setattr__(self, "value", value)

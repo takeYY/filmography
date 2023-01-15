@@ -1,8 +1,8 @@
-from dependency_injector import providers
+from dependency_injector.providers import Factory
 from src.application.jumanpp.jumanpp_application import ImplJumanppApplication, JumanppApplication
 
 
 class JumanppContainer:
-    jumanpp_application: JumanppApplication = providers.Factory(
+    jumanpp_application: Factory[JumanppApplication] = Factory(
         ImplJumanppApplication,
     )
