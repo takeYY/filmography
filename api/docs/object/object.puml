@@ -1,5 +1,6 @@
 @startuml fig_object
 
+title Filmographubのオブジェクト図
 left to right direction
 
 rectangle 「ターミネーター2」を未鑑賞でマイリストにある {
