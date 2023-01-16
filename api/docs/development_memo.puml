@@ -1,5 +1,5 @@
 @startuml fig_development_memo
-title MovieLoggerの開発メモ
+title Filmographubの開発メモ
 
 note as Idea
   ●必要そうな映画情報
