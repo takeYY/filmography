@@ -10,8 +10,8 @@ class FilmRecordCreateModel(BaseModel):
         example=AppreciationStatusEnum.WATCHED,
         description="映画の鑑賞状況. [鑑賞済み, 未鑑賞]のどちらかを取る.",
     )
-    evaluation: int | None = Field(
-        default=None,
+    evaluation: int = Field(
+        default=0,
         example=4,
         description="映画に対する自身の評価. 0より大きい数字である必要がある.",
         gt=0,
@@ -23,8 +23,7 @@ class FilmRecordCreateModel(BaseModel):
         description="映画に対する自身の思い.",
         max_length=300,
     )
-    film: FilmCreateModel | None = Field(
-        default=None,
+    film: FilmCreateModel = Field(
         description="映画createモデル",
     )
     appreciations: list[FilmAppreciationCreateModel] = Field(
