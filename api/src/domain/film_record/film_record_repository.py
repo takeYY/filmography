@@ -18,5 +18,5 @@ class IFilmRecordRepository(ABC):
         self,
         film_record_id: FilmRecordIdObject,
         film_record: FilmRecordEntity,
-    ) -> FilmRecordEntity | None:
+    ) -> FilmRecordEntity:
         raise NotImplementedError

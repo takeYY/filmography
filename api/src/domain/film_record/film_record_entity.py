@@ -19,7 +19,7 @@ class FilmRecordEntity:
         映画記録 ID を扱う値オブジェクト
     appreciation_status: AppreciationStatusEnum
         鑑賞状況を扱う Enum
-    note: str
+    note: str | None
         ノート
     film: FilmEntity
         映画情報を扱うエンティティ
@@ -33,7 +33,7 @@ class FilmRecordEntity:
         self,
         film_record_id: FilmRecordIdObject,
         appreciation_status: AppreciationStatusEnum,
-        note: str,
+        note: str | None,
         film: FilmEntity,
         evaluation: int = 0,
         film_appreciations: list[FilmAppreciationEntity] = [],
@@ -53,7 +53,7 @@ class FilmRecordEntity:
         self.film_record_id: FilmRecordIdObject = film_record_id
         self.appreciation_status: AppreciationStatusEnum = appreciation_status
         self.evaluation: int = evaluation
-        self.note: str = note
+        self.note: str | None = note
         self.film: FilmEntity = film
         self.film_appreciations: list[FilmAppreciationEntity] = film_appreciations
 
@@ -69,7 +69,7 @@ class FilmRecordEntity:
     def get_appreciation_status(self) -> AppreciationStatusEnum:
         return self.appreciation_status
 
-    def get_note(self) -> str:
+    def get_note(self) -> str | None:
         return self.note
 
     def get_film_tmdb_id_object(self) -> TmdbIdObject:
