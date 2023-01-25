@@ -103,3 +103,25 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
 
         logger.warning(f"映画記録が見つかりませんでした. {id=}")
         return None
+
+    def create(self, film_record: FilmRecordEntity) -> FilmRecordEntity:
+        logger.info("【inmemory】映画記録を作成: 開始")
+        self.film_records.append(film_record)
+        logger.info("【inmemory】映画記録を作成: 終了")
+
+        return film_record
+
+    def update(
+        self,
+        film_record_id: FilmRecordIdObject,
+        film_record: FilmRecordEntity,
+    ) -> FilmRecordEntity | None:
+        logger.info(f"【inmemory】{film_record_id}の映画記録を更新します")
+
+        for idx, film_record in enumerate(self.film_records):
+            if film_record.get_film_record_id_object() == film_record_id:
+                self.film_records[idx] = film_record
+                return film_record
+
+        logger.warning(f"映画記録が見つかりませんでした. {film_record_id=}")
+        return None
