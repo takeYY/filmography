@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 
 
@@ -14,8 +15,15 @@ class FilmPosterObject:
     poster_url: str
 
     def __init__(self, poster_url: str):
+        regex = r"^/[0-9a-zA-Z]{27}.jpg"
+        pattern = re.compile(regex)
+
         if not poster_url:
             raise ValueError("poster_urlがありません.")
+        if type(poster_url) is not str:
+            raise ValueError("poster_urlがstr型ではありません.")
+        if not pattern.match(poster_url):
+            raise ValueError("poster_urlの形式が違います.")
 
         object.__setattr__(self, "poster_url", poster_url)
 
