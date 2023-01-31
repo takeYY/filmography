@@ -35,4 +35,4 @@ class FilmGenreDTO:
         if not genre:
             raise ValueError("ジャンルが存在しません.")
 
-        return FilmGenreEnum[genre].value
+        return FilmGenreEnum[genre]

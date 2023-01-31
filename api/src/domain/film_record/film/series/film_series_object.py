@@ -19,10 +19,20 @@ class FilmSeriesObject:
     poster: FilmPosterObject
 
     def __init__(self, name: str, poster: FilmPosterObject):
-        if not name:
-            raise ValueError("nameがありません.")
-        if not poster:
-            raise ValueError("posterがありません.")
+        self.__validate_name(name)
+        self.__validate_poster(poster)
 
         object.__setattr__(self, "name", name)
         object.__setattr__(self, "poster", poster)
+
+    def __validate_name(self, name: str):
+        if not name:
+            raise ValueError("nameがありません.")
+        if type(name) is not str:
+            raise ValueError("nameがstr型ではありません.")
+
+    def __validate_poster(self, poster: FilmPosterObject):
+        if not poster:
+            raise ValueError("posterがありません.")
+        if type(poster) is not FilmPosterObject:
+            raise ValueError("posterがFilmPosterObject型ではありません.")

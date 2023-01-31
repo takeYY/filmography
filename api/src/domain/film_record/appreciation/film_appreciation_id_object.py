@@ -16,5 +16,7 @@ class FilmAppreciationIdObject:
     def __init__(self, value: int):
         if not value:
             raise ValueError("映画鑑賞IDがありません.")
+        if type(value) is not int:
+            raise ValueError("映画鑑賞IDがint型ではありません.")
 
         object.__setattr__(self, "value", value)

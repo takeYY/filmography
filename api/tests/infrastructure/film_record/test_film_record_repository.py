@@ -1,6 +1,6 @@
 from datetime import date
-from logging import getLogger
 
+import pytest
 from src.domain.film_record.appreciation.appreciation_status_enum import AppreciationStatusEnum
 from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
 from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
@@ -11,15 +11,11 @@ from src.domain.film_record.film.series.film_series_object import FilmSeriesObje
 from src.domain.film_record.film.tmdb_id_object import TmdbIdObject
 from src.domain.film_record.film_record_entity import FilmRecordEntity
 from src.domain.film_record.film_record_id_object import FilmRecordIdObject
-from src.domain.film_record.film_record_repository import IFilmRecordRepository
-
-logger = getLogger(__name__)
 
 
-class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
-    def __init__(self) -> None:
-        logger.info("【inmemory】映画記録の初期化処理")
-
+class TestFilmRecordRepository:
+    @pytest.fixture
+    def init_film_record(self):
         # シリーズ作成
         terminator_series = FilmSeriesObject(
             name="ターミネーターシリーズ",
@@ -90,38 +86,65 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
             evaluation=5,
             film_appreciations=[],
         )
-
         self.film_records: list[FilmRecordEntity] = [terminator_record, terminator2_record]
 
-    def find_by_id(self, id: FilmRecordIdObject) -> FilmRecordEntity | None:
-        logger.info(f"【inmemory】{id}に合致する映画記録を検索します")
+    def test_find_by_id(self, init_film_record):
+        target_id = 1
+        film_record_id_object: FilmRecordIdObject = FilmRecordIdObject(target_id)
 
-        for film_record in self.film_records:
-            if film_record.film_record_id == id:
-                logger.info(f"映画記録が見つかりました. {film_record}")
-                return film_record
+        is_found = False
+        for idx, film_record in enumerate(self.film_records, start=1):
+            if film_record.film_record_id == film_record_id_object:
+                is_found = True
+                assert idx == target_id
+                target_id -= 1
+                break
 
-        logger.warning(f"映画記録が見つかりませんでした. {id=}")
-        return None
+        assert is_found is True
+        assert film_record.film_record_id == self.film_records[target_id].film_record_id  # type: ignore
+        assert film_record.appreciation_status == self.film_records[target_id].appreciation_status  # type: ignore
+        assert film_record.note == self.film_records[target_id].note  # type: ignore
+        assert film_record.film == self.film_records[target_id].film  # type: ignore
+        assert film_record.evaluation == self.film_records[target_id].evaluation  # type: ignore
+        assert film_record.film_appreciations == self.film_records[target_id].film_appreciations  # type: ignore
 
-    def create(self, film_record: FilmRecordEntity) -> FilmRecordEntity:
-        logger.info("【inmemory】映画記録を作成: 開始")
-        self.film_records.append(film_record)
-        logger.info("【inmemory】映画記録を作成: 終了")
+    def test_create(self, init_film_record):
+        new_film_record = FilmRecordEntity(
+            film_record_id=FilmRecordIdObject(3),
+            appreciation_status=AppreciationStatusEnum.WATCHED,
+            note="家政婦は三田",
+            film=FilmEntity(
+                tmdb_id=TmdbIdObject(296),
+                title="ターミネーター3",
+                overview="スカイネットを破壊、予見されていた最終戦争の日も過ぎたが、ジョンの心には...",
+                release_date=date(2003, 7, 12),
+                run_time=110,
+                series=FilmSeriesObject(
+                    name="ターミネーターシリーズ",
+                    poster=FilmPosterObject(
+                        poster_url="/kpZxdNsAV7qTdTLwKM5NLqa7GEo.jpg",
+                    ),
+                ),
+                poster=FilmPosterObject(poster_url="/oaA02LgAPk9SAMBfEEiGNbEnaAk.jpg"),
+                genres=set(
+                    [
+                        FilmGenreEnum.ACTION,
+                        FilmGenreEnum.THRILLER,
+                        FilmGenreEnum.SF,
+                    ]
+                ),
+            ),
+            evaluation=4,
+            film_appreciations=[
+                FilmAppreciationEntity(
+                    film_appreciation_id=FilmAppreciationIdObject(3),
+                    medium="Amazon Prime Video",
+                    appreciation_date=date(2020, 3, 1),
+                )
+            ],
+        )
+        self.film_records.append(new_film_record)
+        terminator3 = self.film_records[2]
 
-        return film_record
-
-    def update(
-        self,
-        film_record_id: FilmRecordIdObject,
-        film_record: FilmRecordEntity,
-    ) -> FilmRecordEntity | None:
-        logger.info(f"【inmemory】{film_record_id}の映画記録を更新します")
-
-        for idx, film_record in enumerate(self.film_records):
-            if film_record.get_film_record_id_object() == film_record_id:
-                self.film_records[idx] = film_record
-                return film_record
-
-        logger.warning(f"映画記録が見つかりませんでした. {film_record_id=}")
-        return None
+        assert len(self.film_records) == 3
+        assert terminator3 == new_film_record

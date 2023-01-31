@@ -8,3 +8,15 @@ class IFilmRecordRepository(ABC):
     @abstractmethod
     def find_by_id(self, id: FilmRecordIdObject) -> FilmRecordEntity | None:
         raise NotImplementedError
+
+    @abstractmethod
+    def create(self, film_record: FilmRecordEntity) -> FilmRecordEntity:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update(
+        self,
+        film_record_id: FilmRecordIdObject,
+        film_record: FilmRecordEntity,
+    ) -> FilmRecordEntity:
+        raise NotImplementedError
