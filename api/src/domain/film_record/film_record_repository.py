@@ -10,6 +10,10 @@ class IFilmRecordRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def get_film_records(self):
+        raise NotImplementedError
+
+    @abstractmethod
     def create(self, film_record: FilmRecordEntity) -> FilmRecordEntity:
         raise NotImplementedError
 
