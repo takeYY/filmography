@@ -37,4 +37,20 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
             )
 
     async def fetch_film_records(self):
-        return None
+        logger = getLogger(__name__)
+        try:
+            logger.info("映画記録を一括取得: 開始")
+            # TODO: ドメインサービスで、Notion APIから取得したデータを整形する
+            film_records = self.film_record_repository.get_film_records()
+            logger.info("映画記録を一括取得: 終了")
+
+            return dict(
+                status="success",
+                result=film_records,
+            )
+        except Exception as e:
+            logger.error(e)
+            return dict(
+                status="error",
+                result=str(e),
+            )
