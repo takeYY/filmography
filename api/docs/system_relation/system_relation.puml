@@ -15,6 +15,8 @@ rectangle 開発するシステム {
 
 (FilmographubFront) --> (FilmographubApi) :APIを叩く
 (FilmographubFront) <-- (FilmographubApi) :結果を返却
+(FilmographubApi) --> (TMDb API) :映画情報をリクエスト
+(FilmographubApi) <-- (TMDb API) :映画情報を取得
 (FilmographubApi) --> (Notion) :映画情報をNotion DBへ登録・更新
 (FilmographubApi) <-- (Notion) :DBから映画情報を取得
 
