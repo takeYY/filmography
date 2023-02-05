@@ -1,6 +1,8 @@
+import os
 from datetime import date
 from logging import getLogger
 
+from notion_client import Client
 from src.domain.film_record.appreciation.appreciation_status_enum import AppreciationStatusEnum
 from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
 from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
@@ -103,6 +105,15 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
 
         logger.warning(f"映画記録が見つかりませんでした. {id=}")
         return None
+
+    def get_film_records(self):
+        # Notionの設定
+        notion_token = os.environ["NOTION_TOKEN"]
+        self.notion = Client(auth=notion_token)
+        self.div_film_record_id: str = os.environ["DEV_FILM_RECORD_DB_ID"]
+
+        query: dict[str, str] = dict(database_id=self.div_film_record_id)
+        return self.notion.databases.query(**query)
 
     def create(self, film_record: FilmRecordEntity) -> FilmRecordEntity:
         logger.info("【inmemory】映画記録を作成: 開始")
