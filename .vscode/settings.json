@@ -16,7 +16,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "python.linting.flake8Args": ["--ignore=E402", "--max-line-length=120"],
+  "python.linting.flake8Args": ["--ignore=E402,W503", "--max-line-length=120"],
   "autoDocstring.docstringFormat": "numpy",
   "plantuml.exportOutDir": "./",
   "plantuml.exportSubFolder": false,
