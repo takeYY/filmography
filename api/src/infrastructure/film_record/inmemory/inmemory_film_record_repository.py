@@ -31,7 +31,7 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
         )
         # 『ターミネーター』の映画記録を作成
         terminator_record = FilmRecordEntity(
-            film_record_id=FilmRecordIdObject(value=1),
+            film_record_id=FilmRecordIdObject(value="1"),
             appreciation_status=AppreciationStatusEnum.WATCHED,
             note="あれやこれや",
             film=FilmEntity(
@@ -68,7 +68,7 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
         )
         # 『ターミネーター2』の映画記録を作成
         terminator2_record = FilmRecordEntity(
-            film_record_id=FilmRecordIdObject(value=2),
+            film_record_id=FilmRecordIdObject(value="2"),
             appreciation_status=AppreciationStatusEnum.NOT_WATCHED,
             note="評価高いから観たいな〜♪",
             film=FilmEntity(
