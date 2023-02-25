@@ -9,7 +9,7 @@ def setup_logger(name):
     log_filename = f"{os.getcwd()}/logs/api_{today}.log"
 
     # フォーマッター
-    formatter = "[%(asctime)s] [%(levelname)s] %(filename)s:%(funcName)s:%(lineno)d :%(message)s"
+    formatter = "[%(asctime)s] [%(levelname)s] %(message)s [File: %(filename)s:%(funcName)s():%(lineno)d]"
 
     # 設定
     logging.basicConfig(
