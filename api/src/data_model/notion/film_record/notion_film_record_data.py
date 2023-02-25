@@ -7,10 +7,6 @@ from src.data_model.notion.film_record.notion_film_record_result_data import Not
 
 @dataclass
 class NotionFilmRecordData(JSONWizard):
-    class __(JSONWizard.Meta):
-        tag_key = "type"
-        auto_assign_tags = True
-
     object: str
     results: list[NotionResultData]
     next_cursor: str | None

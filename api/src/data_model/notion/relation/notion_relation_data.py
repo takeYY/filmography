@@ -10,6 +10,6 @@ class NotionRelationIdData:
 @dataclass
 class NotionRelationData:
     id: str
-    type: Literal["NotionRelationData"]
+    type: Literal["relation"]
     relation: list[NotionRelationIdData]
     has_more: bool

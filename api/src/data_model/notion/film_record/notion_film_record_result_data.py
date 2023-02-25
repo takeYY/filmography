@@ -12,6 +12,23 @@ from src.data_model.notion.user.notion_user_data import NotionUserData
 
 
 @dataclass
+class NotionPropertyData:
+    Title: NotionTitleData
+    Cover: NotionFileData
+    Status: NotionSelectData
+    Genre: NotionRelationData
+    Series: NotionRelationData
+    Rating: NotionNumberData
+    Last_Watched_On: NotionDateData
+    Note: NotionRichTextData
+    Watch_History: NotionRelationData
+    TMDb_ID: NotionNumberData
+    Overview: NotionRichTextData
+    Release_Date: NotionDateData
+    Run_Time: NotionNumberData
+
+
+@dataclass
 class NotionResultData:
     object: str
     id: str
@@ -23,14 +40,5 @@ class NotionResultData:
     icon: None
     parent: NotionDatabaseData
     archived: bool
-    properties: dict[
-        str,
-        NotionRelationData
-        | NotionDateData
-        | NotionSelectData
-        | NotionNumberData
-        | NotionRichTextData
-        | NotionTitleData
-        | NotionFileData,
-    ]
+    properties: NotionPropertyData
     url: str

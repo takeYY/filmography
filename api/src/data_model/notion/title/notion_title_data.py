@@ -30,5 +30,8 @@ class NotionTitleDetailData:
 @dataclass
 class NotionTitleData:
     id: str
-    type: Literal["NotionTitleData"]
+    type: Literal["title"]
     title: list[NotionTitleDetailData]
+
+    def get_title(self) -> str:
+        return self.title[0].plain_text if self.title else ""

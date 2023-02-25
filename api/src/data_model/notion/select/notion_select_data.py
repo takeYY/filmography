@@ -12,5 +12,5 @@ class NotionSelectDetailData:
 @dataclass
 class NotionSelectData:
     id: str
-    type: Literal["NotionSelectData"]
+    type: Literal["select"]
     select: NotionSelectDetailData
