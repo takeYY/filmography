@@ -35,7 +35,7 @@ class FilmRecordEntity:
         appreciation_status: AppreciationStatusEnum,
         note: str | None,
         film: FilmEntity,
-        evaluation: int = 0,
+        evaluation: float = 0.0,
         film_appreciations: list[FilmAppreciationEntity] = [],
     ):
         if not isinstance(appreciation_status, AppreciationStatusEnum):
@@ -52,7 +52,7 @@ class FilmRecordEntity:
 
         self.film_record_id: FilmRecordIdObject = film_record_id
         self.appreciation_status: AppreciationStatusEnum = appreciation_status
-        self.evaluation: int = evaluation
+        self.evaluation: float = evaluation
         self.note: str | None = note
         self.film: FilmEntity = film
         self.film_appreciations: list[FilmAppreciationEntity] = film_appreciations
@@ -96,7 +96,7 @@ class FilmRecordEntity:
     def get_film_genres(self) -> set[FilmGenreEnum]:
         return self.film.genres
 
-    def get_evaluation(self) -> int:
+    def get_evaluation(self) -> float:
         return self.evaluation
 
     def get_film_appreciations(self) -> list[FilmAppreciationEntity]:

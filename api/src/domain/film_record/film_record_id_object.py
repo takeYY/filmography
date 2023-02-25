@@ -7,13 +7,13 @@ class FilmRecordIdObject:
 
     Attributes
     ----------
-    value: int
+    value: str
         映画記録 ID
     """
 
-    value: int
+    value: str
 
-    def __init__(self, value: int):
+    def __init__(self, value: str):
         if not value:
             raise ValueError("film record ID がありません.")
 
