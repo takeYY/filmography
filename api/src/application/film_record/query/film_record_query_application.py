@@ -6,6 +6,7 @@ from src.application.film_record.query.interface.film_record_query_application_i
 )
 from src.application.film_record.query.interface.film_record_query_domain_service import IFilmRecordQueryDomainService
 from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
+from src.domain.film_record.film.series.film_series_repository import IFilmSeriesRepository
 from src.domain.film_record.film_record_entity import FilmRecordEntity
 from src.domain.film_record.film_record_id_object import FilmRecordIdObject
 from src.domain.film_record.film_record_repository import IFilmRecordRepository
@@ -16,6 +17,7 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
         self,
         film_record_repository: IFilmRecordRepository,
         film_genre_repository: IFilmGenreRepository,
+        film_series_repository: IFilmSeriesRepository,
     ) -> None:
         logger = getLogger(__name__)
         logger.info("映画記録アプリケーションの初期化")
@@ -23,6 +25,7 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
         self.film_record_domain_service: IFilmRecordQueryDomainService = ImplFilmRecordQueryDomainService(
             film_record_repository=film_record_repository,
             film_genre_repository=film_genre_repository,
+            film_series_repository=film_series_repository,
         )
 
     async def fetch_film_record_by_id(self, id: str) -> dict[str, str | FilmRecordEntity | None]:
