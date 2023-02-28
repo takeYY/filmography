@@ -31,7 +31,7 @@ class TestFilmRecordEntity:
 
         # 『ターミネーター』の映画記録を作成
         self.terminator_record = FilmRecordEntity(
-            film_record_id=FilmRecordIdObject(value=1),
+            film_record_id=FilmRecordIdObject(value="1"),
             appreciation_status=AppreciationStatusEnum.WATCHED,
             note="あれやこれや",
             film=FilmEntity(
@@ -55,12 +55,12 @@ class TestFilmRecordEntity:
             evaluation=5,
             film_appreciations=[
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(value=1),
+                    film_appreciation_id=FilmAppreciationIdObject(value="1"),
                     medium="Amazon Prime Video",
                     appreciation_date=date(2020, 1, 1),
                 ),
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(value=2),
+                    film_appreciation_id=FilmAppreciationIdObject(value="2"),
                     medium="U-NEXT",
                     appreciation_date=date(2020, 2, 1),
                 ),
@@ -73,7 +73,7 @@ class TestFilmRecordEntity:
 
         # 『ターミネーター2』の映画記録を作成
         self.terminator2_record = FilmRecordEntity(
-            film_record_id=FilmRecordIdObject(value=2),
+            film_record_id=FilmRecordIdObject(value="2"),
             appreciation_status=AppreciationStatusEnum.NOT_WATCHED,
             note="評価高いから観たいな〜♪",
             film=FilmEntity(
@@ -97,7 +97,7 @@ class TestFilmRecordEntity:
             evaluation=5,
             film_appreciations=[
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(value=2),
+                    film_appreciation_id=FilmAppreciationIdObject(value="2"),
                     medium="U-NEXT",
                     appreciation_date=date(2020, 2, 1),
                 ),
@@ -106,7 +106,7 @@ class TestFilmRecordEntity:
 
     def test_constructor_should_create_instance(self, init_film_record_with_appreciations):
         """インスタンス生成テスト"""
-        assert self.terminator_record.get_film_record_id_object() == FilmRecordIdObject(1)
+        assert self.terminator_record.get_film_record_id_object() == FilmRecordIdObject("1")
         assert self.terminator_record.get_appreciation_status() == AppreciationStatusEnum.WATCHED
         assert self.terminator_record.get_note() == "あれやこれや"
         assert self.terminator_record.get_film_tmdb_id_object() == TmdbIdObject(218)
@@ -132,12 +132,12 @@ class TestFilmRecordEntity:
         )
         assert self.terminator_record.get_evaluation() == 5
         assert self.terminator_record.get_film_appreciations()[0] == FilmAppreciationEntity(
-            film_appreciation_id=FilmAppreciationIdObject(value=1),
+            film_appreciation_id=FilmAppreciationIdObject(value="1"),
             medium="Amazon Prime Video",
             appreciation_date=date(2020, 1, 1),
         )
         assert self.terminator_record.get_film_appreciations()[1] == FilmAppreciationEntity(
-            film_appreciation_id=FilmAppreciationIdObject(value=2),
+            film_appreciation_id=FilmAppreciationIdObject(value="2"),
             medium="U-NEXT",
             appreciation_date=date(2020, 2, 1),
         )
