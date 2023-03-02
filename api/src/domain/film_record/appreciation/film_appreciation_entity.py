@@ -1,6 +1,7 @@
 from datetime import date
 
 from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
 
 
 class FilmAppreciationEntity:
@@ -10,8 +11,8 @@ class FilmAppreciationEntity:
     ----------
     film_appreciation_id: FilmAppreciationIdObject
         映画鑑賞 ID を扱う値オブジェクト
-    medium: str
-        鑑賞媒体
+    medium: WatchMediumEnum
+        視聴媒体
     appreciation_date: date
         鑑賞日
     """
@@ -19,11 +20,11 @@ class FilmAppreciationEntity:
     def __init__(
         self,
         film_appreciation_id: FilmAppreciationIdObject,
-        medium: str,
+        medium: WatchMediumEnum,
         appreciation_date: date,
     ):
         self.film_appreciation_id: FilmAppreciationIdObject = film_appreciation_id
-        self.medium: str = medium
+        self.medium: WatchMediumEnum = medium
         self.appreciation_date: date = appreciation_date
 
     def __eq__(self, o: object) -> bool:
