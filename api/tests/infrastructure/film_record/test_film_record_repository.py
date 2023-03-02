@@ -11,6 +11,7 @@ from src.domain.film_record.film.series.film_series_object import FilmSeriesObje
 from src.domain.film_record.film.tmdb_id_object import TmdbIdObject
 from src.domain.film_record.film_record_entity import FilmRecordEntity
 from src.domain.film_record.film_record_id_object import FilmRecordIdObject
+from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
 
 
 class TestFilmRecordRepository:
@@ -50,12 +51,12 @@ class TestFilmRecordRepository:
             film_appreciations=[
                 FilmAppreciationEntity(
                     film_appreciation_id=FilmAppreciationIdObject(value="1"),
-                    medium="Amazon Prime Video",
+                    medium=WatchMediumEnum.AMAZON_PRIME_VIDEO,
                     appreciation_date=date(2020, 1, 1),
                 ),
                 FilmAppreciationEntity(
                     film_appreciation_id=FilmAppreciationIdObject(value="2"),
-                    medium="U-NEXT",
+                    medium=WatchMediumEnum.U_NEXT,
                     appreciation_date=date(2020, 2, 1),
                 ),
             ],
@@ -142,7 +143,7 @@ class TestFilmRecordRepository:
             film_appreciations=[
                 FilmAppreciationEntity(
                     film_appreciation_id=FilmAppreciationIdObject("3"),
-                    medium="Amazon Prime Video",
+                    medium=WatchMediumEnum.AMAZON_PRIME_VIDEO,
                     appreciation_date=date(2020, 3, 1),
                 )
             ],
