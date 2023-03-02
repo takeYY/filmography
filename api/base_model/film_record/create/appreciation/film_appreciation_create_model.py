@@ -1,13 +1,14 @@
 from datetime import date
 
 from pydantic import BaseModel, Field, validator
+from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
 
 
 class FilmAppreciationCreateModel(BaseModel):
-    medium: str = Field(
+    medium: WatchMediumEnum = Field(
         default=None,
-        example="Amazon Prime Video",
-        description="鑑賞媒体. Enumにしても良さそう",
+        example=WatchMediumEnum.AMAZON_PRIME_VIDEO,
+        description="鑑賞媒体",
     )
     appreciation_date: date = Field(
         default=date(2016, 12, 25),

@@ -7,16 +7,16 @@ class FilmAppreciationIdObject:
 
     Attributes
     ----------
-    value: int
+    value: str
         映画鑑賞 ID
     """
 
-    value: int
+    value: str
 
-    def __init__(self, value: int):
+    def __init__(self, value: str):
         if not value:
             raise ValueError("映画鑑賞IDがありません.")
-        if type(value) is not int:
-            raise ValueError("映画鑑賞IDがint型ではありません.")
+        if type(value) is not str:
+            raise ValueError("映画鑑賞IDがstr型ではありません.")
 
         object.__setattr__(self, "value", value)

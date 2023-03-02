@@ -22,6 +22,10 @@ class FilmPosterObject:
             raise ValueError("poster_urlがありません.")
         if type(poster_url) is not str:
             raise ValueError("poster_urlがstr型ではありません.")
+
+        # 既にデータが登録されている場合、prefixを消す
+        poster_url = poster_url.replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2", "")
+
         if not pattern.match(poster_url):
             raise ValueError("poster_urlの形式が違います.")
 

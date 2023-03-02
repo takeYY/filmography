@@ -37,3 +37,27 @@ async def film_record_query(
             status="error",
             result=e,
         )
+
+
+@film_record_query_router.get("/")
+@inject
+async def film_records(
+    film_record_query_application: IFilmRecordQueryApplication = Depends(
+        Provide[
+            Container.film_record_query_application,
+        ]
+    ),
+):
+    logger = setup_logger(__name__)
+    try:
+        logger.info("映画記録のクエリ: 開始")
+        responses = await film_record_query_application.fetch_film_records()
+        logger.info("映画記録のクエリ: 終了")
+
+        return responses
+    except Exception as e:
+        logger.error(f"映画記録のクエリでエラー. LOG: {e}", exc_info=True)
+        return dict(
+            status="error",
+            result=e,
+        )
