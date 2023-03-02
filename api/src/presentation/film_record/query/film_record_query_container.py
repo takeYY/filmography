@@ -18,6 +18,10 @@ from src.infrastructure.film_record.watch_history.inmemory.inmemory_watch_histor
     ImplInmemoryFilmWatchHistoryRepository,
 )
 from src.infrastructure.film_record.watch_history.watch_history_repository import ImplFilmWatchHistoryRepository
+from src.infrastructure.film_record.watch_medium.inmemory.inmemory_watch_medium_repository import (
+    ImplInmemoryWatchMediumRepository,
+)
+from src.infrastructure.film_record.watch_medium.watch_medium_repository import ImplWatchMediumRepository
 
 
 class FilmRecordQueryContainer:
@@ -31,6 +35,7 @@ class FilmRecordQueryContainer:
             film_genre_repository=ImplFilmGenreRepository(),
             film_series_repository=ImplFilmSeriesRepository(),
             film_watch_history_repository=ImplFilmWatchHistoryRepository(),
+            watch_medium_repository=ImplWatchMediumRepository(),
         )
     else:
         film_record_query_application = providers.Factory(
@@ -39,4 +44,5 @@ class FilmRecordQueryContainer:
             film_genre_repository=ImplInmemoryFilmGenreRepository(),
             film_series_repository=ImplInmemoryFilmSeriesRepository(),
             film_watch_history_repository=ImplInmemoryFilmWatchHistoryRepository(),
+            watch_medium_repository=ImplInmemoryWatchMediumRepository(),
         )

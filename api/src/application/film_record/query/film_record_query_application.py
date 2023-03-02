@@ -11,6 +11,7 @@ from src.domain.film_record.film_record_entity import FilmRecordEntity
 from src.domain.film_record.film_record_id_object import FilmRecordIdObject
 from src.domain.film_record.film_record_repository import IFilmRecordRepository
 from src.domain.film_record.watch_history.watch_history_repository import IFilmWatchHistoryRepository
+from src.domain.film_record.watch_medium.watch_medium_repository import IWatchMediumRepository
 
 
 class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
@@ -20,6 +21,7 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
         film_genre_repository: IFilmGenreRepository,
         film_series_repository: IFilmSeriesRepository,
         film_watch_history_repository: IFilmWatchHistoryRepository,
+        watch_medium_repository: IWatchMediumRepository,
     ) -> None:
         logger = getLogger(__name__)
         logger.info("映画記録アプリケーションの初期化")
@@ -29,6 +31,7 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
             film_genre_repository=film_genre_repository,
             film_series_repository=film_series_repository,
             film_watch_history_repository=film_watch_history_repository,
+            watch_medium_repository=watch_medium_repository,
         )
 
     async def fetch_film_record_by_id(self, id: str) -> dict[str, str | FilmRecordEntity | None]:
