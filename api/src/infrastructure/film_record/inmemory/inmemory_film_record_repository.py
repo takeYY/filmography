@@ -14,6 +14,7 @@ from src.domain.film_record.film.tmdb_id_object import TmdbIdObject
 from src.domain.film_record.film_record_entity import FilmRecordEntity
 from src.domain.film_record.film_record_id_object import FilmRecordIdObject
 from src.domain.film_record.film_record_repository import IFilmRecordRepository
+from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
 
 logger = getLogger(__name__)
 
@@ -55,13 +56,13 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
             evaluation=5,
             film_appreciations=[
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(value=1),
-                    medium="Amazon Prime Video",
+                    film_appreciation_id=FilmAppreciationIdObject(value="1"),
+                    medium=WatchMediumEnum.AMAZON_PRIME_VIDEO,
                     appreciation_date=date(2020, 1, 1),
                 ),
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(value=2),
-                    medium="U-NEXT",
+                    film_appreciation_id=FilmAppreciationIdObject(value="2"),
+                    medium=WatchMediumEnum.U_NEXT,
                     appreciation_date=date(2020, 2, 1),
                 ),
             ],

@@ -52,7 +52,7 @@ class ImplFilmRecordCommandDomainService(IFilmRecordCommandDomainService):
         genres: list[dict[str, int]] = res_json.get("genres")
 
         film_record = FilmRecordEntity(
-            film_record_id=FilmRecordIdObject(tmdb_id),
+            film_record_id=FilmRecordIdObject(str(tmdb_id)),
             appreciation_status=film_record_model.appreciation_status,
             note=film_record_model.note,
             film=FilmEntity(
@@ -76,7 +76,7 @@ class ImplFilmRecordCommandDomainService(IFilmRecordCommandDomainService):
             evaluation=film_record_model.evaluation,
             film_appreciations=[
                 FilmAppreciationEntity(
-                    film_appreciation_id=FilmAppreciationIdObject(tmdb_id),
+                    film_appreciation_id=FilmAppreciationIdObject(str(tmdb_id)),
                     medium=film_appreciation_model.medium,
                     appreciation_date=film_appreciation_model.appreciation_date,
                 )
