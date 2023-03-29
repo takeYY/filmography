@@ -1,0 +1,128 @@
+.root {
+  $paddings: 15px;
+  @mixin borderStyle() {
+    display: block;
+
+    height: 1px;
+    width: 30px;
+
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  display: flex;
+  width: 100%;
+
+  .sidebar {
+    position: -webkit-sticky; /* Safari対応 */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #192734;
+
+    padding-left: $paddings;
+    padding-right: $paddings;
+  }
+
+  .hamburger {
+    cursor: pointer;
+    width: 40px;
+
+    margin-top: 15px;
+
+    /* メニューを閉じるアニメーション ==================================================================================== */
+    .menuCloseArrow {
+      @include borderStyle;
+    }
+
+    &:hover > .menuCloseArrow {
+      transition: 0.2s;
+
+      &:nth-child(1) {
+        width: 15px;
+        height: 2px;
+        transform: translateY(7px) translateX(-1px) rotate(140deg);
+      }
+
+      &:nth-child(2) {
+        height: 2px;
+      }
+
+      &:nth-child(3) {
+        width: 15px;
+        height: 2px;
+        transform: translateY(-7px) translateX(-1px) rotate(-140deg);
+
+        margin-bottom: -3px; /* アニメーションの際の調整 */
+      }
+    }
+
+    /* メニューを開くアニメーション ====================================================================================== */
+    .menuOpenArrow {
+      @include borderStyle;
+    }
+
+    &:hover > .menuOpenArrow {
+      transition: 0.2s;
+
+      &:nth-child(1) {
+        width: 15px;
+        height: 2px;
+        transform: translateY(7px) translateX(16px) rotate(-140deg);
+      }
+
+      &:nth-child(2) {
+        height: 2px;
+      }
+
+      &:nth-child(3) {
+        width: 15px;
+        height: 2px;
+        transform: translateY(-7px) translateX(16px) rotate(140deg);
+
+        margin-bottom: -3px; /* アニメーションの際の調整 */
+      }
+    }
+  }
+
+  .flexContainer {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+
+    margin-top: 10px;
+
+    margin-right: -$paddings;
+    margin-left: -$paddings;
+
+    padding-right: $paddings;
+    padding-left: $paddings;
+
+    &:hover {
+      background-color: #1da1f2;
+    }
+  }
+
+  .icon {
+    display: block;
+    flex-shrink: 0;
+    fill: #8899a6;
+    width: 25px;
+
+    margin-top: 12px; // 微調整
+    margin-bottom: 12px; // 微調整
+  }
+
+  .pageName {
+    font-size: 14px;
+    color: #8899a6;
+  }
+
+  .mainContent {
+    background-color: #15202b;
+    width: 100%;
+  }
+}
