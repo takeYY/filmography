@@ -6,9 +6,7 @@ from src.application.film_record.command.interface.film_record_command_applicati
 from src.application.film_record.command.interface.film_record_command_domain_service import (
     IFilmRecordCommandDomainService,
 )
-from src.domain.film_record.film_record_entity import FilmRecordEntity
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
-from src.domain.film_record.film_record_repository import IFilmRecordRepository
+from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
 
 
 class ImplFilmRecordCommandApplication(IFilmRecordCommandApplication):

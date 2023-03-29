@@ -6,16 +6,13 @@ from base_model.film_record.create.film_record_create_model import FilmRecordCre
 from src.application.film_record.command.interface.film_record_command_domain_service import (
     IFilmRecordCommandDomainService,
 )
-from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
-from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
+from src.domain.film_record.appreciation import FilmAppreciationEntity, FilmAppreciationIdObject
 from src.domain.film_record.film.film_entity import FilmEntity
 from src.domain.film_record.film.genre.film_genre_dto import FilmGenreDTO
 from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject
 from src.domain.film_record.film.series.film_series_object import FilmSeriesObject
 from src.domain.film_record.film.tmdb_id_object import TmdbIdObject
-from src.domain.film_record.film_record_entity import FilmRecordEntity
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
-from src.domain.film_record.film_record_repository import IFilmRecordRepository
 
 
 class ImplFilmRecordCommandDomainService(IFilmRecordCommandDomainService):

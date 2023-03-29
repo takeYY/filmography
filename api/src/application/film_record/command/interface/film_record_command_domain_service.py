@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from base_model.film_record.create.film_record_create_model import FilmRecordCreateModel
-from src.domain.film_record.film_record_entity import FilmRecordEntity
+from src.domain.film_record import FilmRecordEntity
 
 
 class IFilmRecordCommandDomainService(ABC):

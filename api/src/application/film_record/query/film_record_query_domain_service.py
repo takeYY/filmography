@@ -6,11 +6,10 @@ from src.data_model.notion.genre.notion_genre_data import NotionGenreData
 from src.data_model.notion.series.notion_series_data import NotionSeriesData
 from src.data_model.notion.watch_history.notion_watch_history_data import NotionWatchHistoryData
 from src.data_model.notion.watch_medium.notion_watch_medium_data import NotionWatchMediumData
+from src.domain.film_record import FilmRecordEntity, IFilmRecordRepository
 from src.domain.film_record.dto.film_record_dto import FilmRecordDto
 from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
 from src.domain.film_record.film.series.film_series_repository import IFilmSeriesRepository
-from src.domain.film_record.film_record_entity import FilmRecordEntity
-from src.domain.film_record.film_record_repository import IFilmRecordRepository
 from src.domain.film_record.watch_history.watch_history_repository import IFilmWatchHistoryRepository
 from src.domain.film_record.watch_medium.watch_medium_repository import IWatchMediumRepository
 

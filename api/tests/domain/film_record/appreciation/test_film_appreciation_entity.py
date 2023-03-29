@@ -1,8 +1,7 @@
 from datetime import date
 
 import pytest
-from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
-from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+from src.domain.film_record.appreciation import FilmAppreciationEntity, FilmAppreciationIdObject
 from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
 
 

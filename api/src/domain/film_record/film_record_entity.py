@@ -1,7 +1,6 @@
 from datetime import date
 
-from src.domain.film_record.appreciation.appreciation_status_enum import AppreciationStatusEnum
-from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
+from src.domain.film_record.appreciation import AppreciationStatusEnum, FilmAppreciationEntity
 from src.domain.film_record.film.film_entity import FilmEntity
 from src.domain.film_record.film.genre.film_genre_enum import FilmGenreEnum
 from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject

@@ -4,16 +4,13 @@ from src.data_model.notion.series.notion_series_data import NotionSeriesData
 from src.data_model.notion.series.notion_series_result_data import NotionSeriesResultData
 from src.data_model.notion.watch_history.notion_watch_history_data import NotionWatchHistoryData
 from src.data_model.notion.watch_medium.notion_watch_medium_data import NotionWatchMediumData
-from src.domain.film_record.appreciation.appreciation_status_enum import AppreciationStatusEnum
-from src.domain.film_record.appreciation.film_appreciation_entity import FilmAppreciationEntity
-from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject
+from src.domain.film_record.appreciation import AppreciationStatusEnum, FilmAppreciationEntity, FilmAppreciationIdObject
 from src.domain.film_record.film.film_entity import FilmEntity
 from src.domain.film_record.film.genre.film_genre_dto import FilmGenreDTO
 from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject
 from src.domain.film_record.film.series.film_series_object import FilmSeriesObject
 from src.domain.film_record.film.tmdb_id_object import TmdbIdObject
-from src.domain.film_record.film_record_entity import FilmRecordEntity
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
 from src.domain.film_record.watch_medium.watch_medium_dto import WatchMediumDTO
 
 

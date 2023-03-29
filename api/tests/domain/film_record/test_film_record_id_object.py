@@ -1,5 +1,5 @@
 import pytest
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
+from src.domain.film_record import FilmRecordIdObject
 
 
 class TestFilmRecordIdObject:

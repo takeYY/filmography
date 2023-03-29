@@ -5,11 +5,9 @@ from src.application.film_record.query.interface.film_record_query_application_i
     IFilmRecordQueryApplication,
 )
 from src.application.film_record.query.interface.film_record_query_domain_service import IFilmRecordQueryDomainService
+from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
 from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
 from src.domain.film_record.film.series.film_series_repository import IFilmSeriesRepository
-from src.domain.film_record.film_record_entity import FilmRecordEntity
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
-from src.domain.film_record.film_record_repository import IFilmRecordRepository
 from src.domain.film_record.watch_history.watch_history_repository import IFilmWatchHistoryRepository
 from src.domain.film_record.watch_medium.watch_medium_repository import IWatchMediumRepository
 
