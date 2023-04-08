@@ -1,5 +1,8 @@
+# 外部ライブラリ
 from fastapi import FastAPI
-from src.presentation.containers import Container
+
+# 独自ライブラリ
+from src.presentation import Container
 from src.presentation.default.default_route import default_router
 from src.presentation.film_record.command.film_record_command_route import film_record_command_router
 from src.presentation.film_record.query.film_record_query_route import film_record_query_router

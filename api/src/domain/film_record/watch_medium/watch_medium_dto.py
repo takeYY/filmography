@@ -1,6 +1,8 @@
+# 独自ライブラリ
 from src.data_model.notion.relation.notion_relation_data import NotionRelationIdData
 from src.data_model.notion.watch_medium.notion_watch_medium_data import NotionWatchMediumData
-from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
+
+from .watch_medium_enum import WatchMediumEnum
 
 
 class WatchMediumDTO:

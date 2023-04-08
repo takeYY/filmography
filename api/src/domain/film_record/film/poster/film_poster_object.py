@@ -1,3 +1,4 @@
+# 標準ライブラリ
 import re
 from dataclasses import dataclass
 

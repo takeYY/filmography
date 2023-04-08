@@ -1,0 +1,2 @@
+from .film_record_query_application_interface import IFilmRecordQueryApplication
+from .film_record_query_domain_service import IFilmRecordQueryDomainService

@@ -1,7 +1,11 @@
+# 標準ライブラリ
 import os
 from logging import getLogger
 
+# 外部ライブラリ
 from notion_client import Client
+
+# 独自ライブラリ
 from src.domain.film_record.film.series.film_series_repository import IFilmSeriesRepository
 
 logger = getLogger(__name__)

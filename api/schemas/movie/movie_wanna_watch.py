@@ -1,5 +1,7 @@
+# 標準ライブラリ
 from typing import List, Optional
 
+# 外部ライブラリ
 from pydantic import BaseModel, Field, validator
 
 

@@ -1,11 +1,15 @@
+# 標準ライブラリ
 import os
 
+# 外部ライブラリ
 from dependency_injector import providers
 from dependency_injector.providers import Factory
-from src.application.film_record.command.film_record_command_application import ImplFilmRecordCommandApplication
-from src.application.film_record.command.interface.film_record_command_application import IFilmRecordCommandApplication
-from src.infrastructure.film_record.film_record_repository import ImplFilmRecordRepository
-from src.infrastructure.film_record.inmemory.inmemory_film_record_repository import ImplInmemoryFilmRecordRepository
+
+# 独自ライブラリ
+from src.application.film_record.command import ImplFilmRecordCommandApplication
+from src.application.film_record.command.interface import IFilmRecordCommandApplication
+from src.infrastructure.film_record import ImplFilmRecordRepository
+from src.infrastructure.film_record.inmemory import ImplInmemoryFilmRecordRepository
 
 
 class FilmRecordCommandContainer:

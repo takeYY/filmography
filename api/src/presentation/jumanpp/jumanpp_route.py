@@ -1,10 +1,13 @@
-from base_model.word.word import Word
+# 外部ライブラリ
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
-from src.application.jumanpp.jumanpp_application import JumanppApplication
-from src.presentation.containers import Container
 
 jumanpp_router = APIRouter()
+
+# 独自ライブラリ
+from schemas.word.word import Word
+from src.application.jumanpp.jumanpp_application import JumanppApplication
+from src.presentation import Container
 
 
 @jumanpp_router.get("/")

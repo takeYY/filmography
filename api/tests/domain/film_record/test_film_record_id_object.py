@@ -1,5 +1,8 @@
+# 外部ライブラリ
 import pytest
-from src.domain.film_record.film_record_id_object import FilmRecordIdObject
+
+# 独自ライブラリ
+from src.domain.film_record import FilmRecordIdObject
 
 
 class TestFilmRecordIdObject:

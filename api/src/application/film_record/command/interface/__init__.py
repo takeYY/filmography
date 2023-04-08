@@ -1,0 +1,2 @@
+from .film_record_command_application import IFilmRecordCommandApplication
+from .film_record_command_domain_service import IFilmRecordCommandDomainService

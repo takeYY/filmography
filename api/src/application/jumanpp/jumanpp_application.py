@@ -1,13 +1,16 @@
+# 標準ライブラリ
 from abc import ABC, abstractmethod
-from typing import Dict
 
-from base_model.word.word import Word
+# 外部ライブラリ
 from pyknp import Juman
+
+# 独自ライブラリ
+from schemas.word.word import Word
 
 
 class JumanppApplication(ABC):
     @abstractmethod
-    async def morphological_analysis(self, target: Word) -> Dict[str, str]:
+    async def morphological_analysis(self, target: Word) -> dict[str, str]:
         raise NotImplementedError
 
 
@@ -15,7 +18,7 @@ class ImplJumanppApplication(JumanppApplication):
     def __init__(self):
         print("application init")
 
-    async def morphological_analysis(self, word: Word) -> Dict[str, str]:
+    async def morphological_analysis(self, word: Word) -> dict[str, str]:
         try:
             print("application analysis")
             juman = Juman()

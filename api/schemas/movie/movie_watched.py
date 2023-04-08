@@ -1,6 +1,8 @@
+# 標準ライブラリ
 from datetime import date
 from typing import List, Optional
 
+# 外部ライブラリ
 from pydantic import BaseModel, Field, validator
 
 

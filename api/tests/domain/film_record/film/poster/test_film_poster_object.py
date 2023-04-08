@@ -1,5 +1,8 @@
+# 外部ライブラリ
 import pytest
-from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject
+
+# 独自ライブラリ
+from src.domain.film_record.film.poster import FilmPosterObject
 
 
 class TestFilmPosterObject:

@@ -1,27 +1,23 @@
+# 標準ライブラリ
 import os
 
+# 外部ライブラリ
 from dependency_injector import providers
 from dependency_injector.providers import Factory
-from src.application.film_record.query.film_record_query_application import ImplFilmRecordQueryApplication
-from src.application.film_record.query.interface.film_record_query_application_interface import (
-    IFilmRecordQueryApplication,
-)
-from src.infrastructure.film_record.film_record_repository import ImplFilmRecordRepository
-from src.infrastructure.film_record.genre.film_genre_repository import ImplFilmGenreRepository
-from src.infrastructure.film_record.genre.inmemory.inmemory_film_genre_repository import ImplInmemoryFilmGenreRepository
-from src.infrastructure.film_record.inmemory.inmemory_film_record_repository import ImplInmemoryFilmRecordRepository
-from src.infrastructure.film_record.series.film_series_repository import ImplFilmSeriesRepository
-from src.infrastructure.film_record.series.inmemory.inmemory_film_series_repository import (
-    ImplInmemoryFilmSeriesRepository,
-)
-from src.infrastructure.film_record.watch_history.inmemory.inmemory_watch_history_repository import (
-    ImplInmemoryFilmWatchHistoryRepository,
-)
-from src.infrastructure.film_record.watch_history.watch_history_repository import ImplFilmWatchHistoryRepository
-from src.infrastructure.film_record.watch_medium.inmemory.inmemory_watch_medium_repository import (
-    ImplInmemoryWatchMediumRepository,
-)
-from src.infrastructure.film_record.watch_medium.watch_medium_repository import ImplWatchMediumRepository
+
+# 独自ライブラリ
+from src.application.film_record.query import ImplFilmRecordQueryApplication
+from src.application.film_record.query.interface import IFilmRecordQueryApplication
+from src.infrastructure.film_record import ImplFilmRecordRepository
+from src.infrastructure.film_record.genre import ImplFilmGenreRepository
+from src.infrastructure.film_record.genre.inmemory import ImplInmemoryFilmGenreRepository
+from src.infrastructure.film_record.inmemory import ImplInmemoryFilmRecordRepository
+from src.infrastructure.film_record.series import ImplFilmSeriesRepository
+from src.infrastructure.film_record.series.inmemory import ImplInmemoryFilmSeriesRepository
+from src.infrastructure.film_record.watch_history import ImplFilmWatchHistoryRepository
+from src.infrastructure.film_record.watch_history.inmemory import ImplInmemoryFilmWatchHistoryRepository
+from src.infrastructure.film_record.watch_medium import ImplWatchMediumRepository
+from src.infrastructure.film_record.watch_medium.inmemory import ImplInmemoryWatchMediumRepository
 
 
 class FilmRecordQueryContainer:
