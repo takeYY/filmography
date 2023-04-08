@@ -1,7 +1,11 @@
+# 標準ライブラリ
 from datetime import date
 
+# 外部ライブラリ
 from pydantic import BaseModel, Field, validator
-from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
+
+# 独自ライブラリ
+from src.domain.film_record.watch_medium import WatchMediumEnum
 
 
 class FilmAppreciationCreateModel(BaseModel):

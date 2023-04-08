@@ -1,6 +1,8 @@
+# 標準ライブラリ
 from datetime import date
 from enum import Enum
 
+# 外部ライブラリ
 from pydantic import BaseModel, Field, validator
 
 

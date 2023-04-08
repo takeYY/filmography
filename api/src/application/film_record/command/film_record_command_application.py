@@ -2,7 +2,7 @@
 from logging import getLogger
 
 # 独自ライブラリ
-from base_model.film_record.create.film_record_create_model import FilmRecordCreateModel
+from schemas.film_record.create.film_record_create_model import FilmRecordCreateModel
 from src.application.film_record.command.interface import IFilmRecordCommandApplication, IFilmRecordCommandDomainService
 from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
 

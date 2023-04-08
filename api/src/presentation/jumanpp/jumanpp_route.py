@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 jumanpp_router = APIRouter()
 
 # 独自ライブラリ
-from base_model.word.word import Word
+from schemas.word.word import Word
 from src.application.jumanpp.jumanpp_application import JumanppApplication
 from src.presentation import Container
 

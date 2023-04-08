@@ -1,3 +1,4 @@
+# 外部ライブラリ
 from pydantic import BaseModel
 
 
