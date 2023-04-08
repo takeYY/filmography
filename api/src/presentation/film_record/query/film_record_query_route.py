@@ -1,8 +1,9 @@
+# 外部ライブラリ
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
-from src.application.film_record.query.interface.film_record_query_application_interface import (
-    IFilmRecordQueryApplication,
-)
+
+# 独自ライブラリ
+from src.application.film_record.query.interface import IFilmRecordQueryApplication
 from src.presentation.containers import Container
 from src.utils.setup_logger import setup_logger
 

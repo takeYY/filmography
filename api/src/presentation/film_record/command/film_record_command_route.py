@@ -1,7 +1,7 @@
 from base_model.film_record.create.film_record_create_model import FilmRecordCreateModel
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, status
-from src.application.film_record.command.interface.film_record_command_application import IFilmRecordCommandApplication
+from src.application.film_record.command.interface import IFilmRecordCommandApplication
 from src.presentation.containers import Container
 from src.utils.setup_logger import setup_logger
 

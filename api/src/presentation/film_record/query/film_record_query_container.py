@@ -1,11 +1,13 @@
+# 標準ライブラリ
 import os
 
+# 外部ライブラリ
 from dependency_injector import providers
 from dependency_injector.providers import Factory
-from src.application.film_record.query.film_record_query_application import ImplFilmRecordQueryApplication
-from src.application.film_record.query.interface.film_record_query_application_interface import (
-    IFilmRecordQueryApplication,
-)
+
+# 独自ライブラリ
+from src.application.film_record.query import ImplFilmRecordQueryApplication
+from src.application.film_record.query.interface import IFilmRecordQueryApplication
 from src.infrastructure.film_record.film_record_repository import ImplFilmRecordRepository
 from src.infrastructure.film_record.genre.film_genre_repository import ImplFilmGenreRepository
 from src.infrastructure.film_record.genre.inmemory.inmemory_film_genre_repository import ImplInmemoryFilmGenreRepository

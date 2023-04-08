@@ -7,9 +7,7 @@ import requests
 
 # 独自ライブラリ
 from base_model.film_record.create.film_record_create_model import FilmRecordCreateModel
-from src.application.film_record.command.interface.film_record_command_domain_service import (
-    IFilmRecordCommandDomainService,
-)
+from src.application.film_record.command.interface import IFilmRecordCommandDomainService
 from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
 from src.domain.film_record.appreciation import FilmAppreciationEntity, FilmAppreciationIdObject
 from src.domain.film_record.film import FilmEntity, TmdbIdObject
