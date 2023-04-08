@@ -8,8 +8,8 @@ from dependency_injector.providers import Factory
 # 独自ライブラリ
 from src.application.film_record.command import ImplFilmRecordCommandApplication
 from src.application.film_record.command.interface import IFilmRecordCommandApplication
-from src.infrastructure.film_record.film_record_repository import ImplFilmRecordRepository
-from src.infrastructure.film_record.inmemory.inmemory_film_record_repository import ImplInmemoryFilmRecordRepository
+from src.infrastructure.film_record import ImplFilmRecordRepository
+from src.infrastructure.film_record.inmemory import ImplInmemoryFilmRecordRepository
 
 
 class FilmRecordCommandContainer:

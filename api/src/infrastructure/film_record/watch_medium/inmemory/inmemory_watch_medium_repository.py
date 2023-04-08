@@ -1,8 +1,12 @@
+# 標準ライブラリ
 import os
 from logging import getLogger
 
+# 外部ライブラリ
 from notion_client import Client
-from src.domain.film_record.watch_medium.watch_medium_repository import IWatchMediumRepository
+
+# 独自ライブラリ
+from src.domain.film_record.watch_medium import IWatchMediumRepository
 
 logger = getLogger(__name__)
 

@@ -1,8 +1,10 @@
 # 標準ライブラリ
 import os
 
-# 独自ライブラリ
+# 外部ライブラリ
 from notion_client import Client
+
+# 独自ライブラリ
 from src.domain.film_record.film.genre import IFilmGenreRepository
 
 
