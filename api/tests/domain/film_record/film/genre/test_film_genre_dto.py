@@ -1,5 +1,4 @@
-from src.domain.film_record.film.genre.film_genre_dto import FilmGenreDTO
-from src.domain.film_record.film.genre.film_genre_enum import FilmGenreEnum
+from src.domain.film_record.film.genre import FilmGenreDTO, FilmGenreEnum
 
 
 class TestFilmGenreDto:

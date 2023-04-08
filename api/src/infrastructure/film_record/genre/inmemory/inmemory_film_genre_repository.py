@@ -1,8 +1,12 @@
+# 標準ライブラリ
 import os
 from logging import getLogger
 
+# 外部ライブラリ
 from notion_client import Client
-from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
+
+# 独自ライブラリ
+from src.domain.film_record.film.genre import IFilmGenreRepository
 
 logger = getLogger(__name__)
 

@@ -1,6 +1,8 @@
+# 標準ライブラリ
 from dataclasses import dataclass
 
-from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject
+# 独自ライブラリ
+from src.domain.film_record.film.poster import FilmPosterObject
 
 
 @dataclass(init=False, eq=True, frozen=True)

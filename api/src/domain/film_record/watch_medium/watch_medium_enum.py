@@ -1,3 +1,4 @@
+# 標準ライブラリ
 from enum import Enum
 
 

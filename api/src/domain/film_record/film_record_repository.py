@@ -1,6 +1,9 @@
+# 標準ライブラリ
 from abc import ABC, abstractmethod
 
-from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject
+# 独自ライブラリ
+from .film_record_entity import FilmRecordEntity
+from .film_record_id_object import FilmRecordIdObject
 
 
 class IFilmRecordRepository(ABC):

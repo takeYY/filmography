@@ -1,6 +1,8 @@
+# 独自ライブラリ
 from src.data_model.notion.genre.notion_genre_data import NotionGenreData
 from src.data_model.notion.relation.notion_relation_data import NotionRelationIdData
-from src.domain.film_record.film.genre.film_genre_enum import FilmGenreEnum
+
+from .film_genre_enum import FilmGenreEnum
 
 
 class FilmGenreDTO:

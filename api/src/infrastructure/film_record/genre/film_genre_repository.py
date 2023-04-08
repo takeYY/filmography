@@ -1,7 +1,9 @@
+# 標準ライブラリ
 import os
 
+# 独自ライブラリ
 from notion_client import Client
-from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
+from src.domain.film_record.film.genre import IFilmGenreRepository
 
 
 class ImplFilmGenreRepository(IFilmGenreRepository):

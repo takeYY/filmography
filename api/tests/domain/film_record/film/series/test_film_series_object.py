@@ -1,6 +1,9 @@
+# 外部ライブラリ
 import pytest
-from src.domain.film_record.film.poster.film_poster_object import FilmPosterObject
-from src.domain.film_record.film.series.film_series_object import FilmSeriesObject
+
+# 独自ライブラリ
+from src.domain.film_record.film.poster import FilmPosterObject
+from src.domain.film_record.film.series import FilmSeriesObject
 
 
 class TestFilmSeriesObject:

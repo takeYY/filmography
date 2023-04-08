@@ -1,7 +1,10 @@
+# 標準ライブラリ
 from datetime import date
 
-from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+# 独自ライブラリ
 from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
+
+from .film_appreciation_id_object import FilmAppreciationIdObject
 
 
 class FilmAppreciationEntity:

@@ -1,7 +1,11 @@
+# 標準ライブラリ
 import os
 
+# 外部ライブラリ
 from notion_client import Client
-from src.domain.film_record.watch_history.watch_history_repository import IFilmWatchHistoryRepository
+
+# 独自ライブラリ
+from src.domain.film_record.watch_history import IFilmWatchHistoryRepository
 
 
 class ImplFilmWatchHistoryRepository(IFilmWatchHistoryRepository):

@@ -1,5 +1,7 @@
+# 標準ライブラリ
 from __future__ import annotations
 
+# 独自ライブラリ
 from src.application.film_record.query.interface.film_record_query_domain_service import IFilmRecordQueryDomainService
 from src.data_model.notion.film_record.notion_film_record_data import NotionFilmRecordData
 from src.data_model.notion.genre.notion_genre_data import NotionGenreData
@@ -7,10 +9,10 @@ from src.data_model.notion.series.notion_series_data import NotionSeriesData
 from src.data_model.notion.watch_history.notion_watch_history_data import NotionWatchHistoryData
 from src.data_model.notion.watch_medium.notion_watch_medium_data import NotionWatchMediumData
 from src.domain.film_record import FilmRecordEntity, IFilmRecordRepository
-from src.domain.film_record.dto.film_record_dto import FilmRecordDto
-from src.domain.film_record.film.genre.film_genre_repository import IFilmGenreRepository
+from src.domain.film_record.dto import FilmRecordDto
+from src.domain.film_record.film.genre import IFilmGenreRepository
 from src.domain.film_record.film.series.film_series_repository import IFilmSeriesRepository
-from src.domain.film_record.watch_history.watch_history_repository import IFilmWatchHistoryRepository
+from src.domain.film_record.watch_history import IFilmWatchHistoryRepository
 from src.domain.film_record.watch_medium.watch_medium_repository import IWatchMediumRepository
 
 
