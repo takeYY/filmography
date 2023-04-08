@@ -8,7 +8,7 @@ film_record_command_router = APIRouter()
 from base_model.film_record.create.film_record_create_model import FilmRecordCreateModel
 from src.application.film_record.command.interface import IFilmRecordCommandApplication
 from src.presentation import Container
-from src.utils.setup_logger import setup_logger
+from src.utils import setup_logger
 
 
 @film_record_command_router.post(

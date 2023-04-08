@@ -7,7 +7,7 @@ film_record_query_router = APIRouter()
 # 独自ライブラリ
 from src.application.film_record.query.interface import IFilmRecordQueryApplication
 from src.presentation import Container
-from src.utils.setup_logger import setup_logger
+from src.utils import setup_logger
 
 
 @film_record_query_router.get("/{film_record_id}")
