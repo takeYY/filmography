@@ -1,7 +1,11 @@
+# 標準ライブラリ
 import dataclasses
 
+# 外部ライブラリ
 import pytest
-from src.domain.film_record.appreciation.film_appreciation_id_object import FilmAppreciationIdObject
+
+# 独自ライブラリ
+from src.domain.film_record.appreciation import FilmAppreciationIdObject
 
 
 class TestFilmAppreciationIdObject:

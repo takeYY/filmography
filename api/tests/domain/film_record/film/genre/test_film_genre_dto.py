@@ -1,3 +1,4 @@
+# 独自ライブラリ
 from src.domain.film_record.film.genre import FilmGenreDTO, FilmGenreEnum
 
 

@@ -1,8 +1,12 @@
+# 標準ライブラリ
 from datetime import date
 
+# 外部ライブラリ
 import pytest
+
+# 独自ライブラリ
 from src.domain.film_record.appreciation import FilmAppreciationEntity, FilmAppreciationIdObject
-from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
+from src.domain.film_record.watch_medium import WatchMediumEnum
 
 
 class TestFilmAppreciationEntity:

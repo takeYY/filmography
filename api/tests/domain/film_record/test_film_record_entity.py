@@ -11,7 +11,7 @@ from src.domain.film_record.film import FilmEntity, TmdbIdObject
 from src.domain.film_record.film.genre import FilmGenreEnum
 from src.domain.film_record.film.poster import FilmPosterObject
 from src.domain.film_record.film.series import FilmSeriesObject
-from src.domain.film_record.watch_medium.watch_medium_enum import WatchMediumEnum
+from src.domain.film_record.watch_medium import WatchMediumEnum
 
 
 class TestFilmRecordEntity:
