@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "filmographub-api"
+name = "filmography-api"
 version = "0.1.0"
 description = ""
 authors = ["takeYY <t0k6yist@gmail.com>"]
 readme = "README.md"
-packages = [{include = "filmographub_api"}]
+packages = [{include = "filmography_api"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
