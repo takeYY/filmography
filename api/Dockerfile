@@ -21,9 +21,9 @@ WORKDIR /api
 ENV POETRY_HOME=/opt/poetry
 
 # poetry インストール
-RUN curl -sSL https://install.python-poetry.org | python3 - \ 
+RUN curl -sSL https://install.python-poetry.org | python3 - \
   # シンボリックによる path への poetry コマンドの追加
-  && cd /usr/local/bin \ 
+  && cd /usr/local/bin \
   && ln -s /opt/poetry/bin/poetry \
   # 仮想環境を作成しない設定(コンテナ前提のため，仮想環境を作らない)
   && poetry config virtualenvs.create false

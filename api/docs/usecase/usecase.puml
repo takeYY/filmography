@@ -1,11 +1,11 @@
 @startuml fig_usecase
 
-title Filmographubのユースケース図
+title Filmographyのユースケース図
 skinparam actorStyle awesome
 
 left to right direction
 
-rectangle Filmographub {
+rectangle Filmography {
   usecase "鑑賞済み映画を登録する" as UC01
   usecase "鑑賞済み映画を更新する" as UC02
   usecase "鑑賞したい映画をマイリストに登録する" as UC03

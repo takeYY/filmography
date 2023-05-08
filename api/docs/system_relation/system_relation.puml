@@ -1,26 +1,26 @@
 @startuml fig_system_relation
 
-title Filmographubのシステム関連図
+title Filmographyのシステム関連図
 skinparam actorStyle awesome
 
 
 rectangle 開発するシステム {
-  "FilmographubFront" as (FilmographubFront)
-  "FilmographubAPI" as (FilmographubApi)
+  "FilmographyFront" as (FilmographyFront)
+  "FilmographyAPI" as (FilmographyApi)
 
 }
 
-:利用者: -- (FilmographubFront)
+:利用者: -- (FilmographyFront)
 :利用者: -- (Notion)
 
-(FilmographubFront) --> (FilmographubApi) :APIを叩く
-(FilmographubFront) <-- (FilmographubApi) :結果を返却
-(FilmographubApi) --> (TMDb API) :映画情報をリクエスト
-(FilmographubApi) <-- (TMDb API) :映画情報を取得
-(FilmographubApi) --> (Notion) :映画情報をNotion DBへ登録・更新
-(FilmographubApi) <-- (Notion) :DBから映画情報を取得
+(FilmographyFront) --> (FilmographyApi) :APIを叩く
+(FilmographyFront) <-- (FilmographyApi) :結果を返却
+(FilmographyApi) --> (TMDb API) :映画情報をリクエスト
+(FilmographyApi) <-- (TMDb API) :映画情報を取得
+(FilmographyApi) --> (Notion) :映画情報をNotion DBへ登録・更新
+(FilmographyApi) <-- (Notion) :DBから映画情報を取得
 
-note "Filmographubページから映画情報を登録・更新する\nNotionから映画情報を閲覧する" as note01
+note "Filmographyページから映画情報を登録・更新する\nNotionから映画情報を閲覧する" as note01
 
 note01 .. :利用者:
 

@@ -29,14 +29,6 @@
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "ms-python.python"
   },
-  "cSpell.words": [
-    "fastapi",
-    "Inmemory",
-    "jumanpp",
-    "tmdb",
-    "UMCS",
-    "pytest",
-    "filmographub"
-  ],
+  "cSpell.words": ["fastapi", "Inmemory", "jumanpp", "tmdb", "UMCS", "pytest"],
   "python.analysis.typeCheckingMode": "basic"
 }
