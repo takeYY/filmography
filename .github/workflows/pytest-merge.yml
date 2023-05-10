@@ -3,6 +3,7 @@ name: Pytest on merge
   push:
     branches:
       - main
+      - develop
 
 jobs:
   pytest:
