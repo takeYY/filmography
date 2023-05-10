@@ -1,0 +1,223 @@
+openapi: 3.0.2
+info:
+  title: FastAPI
+  version: 0.1.0
+paths:
+  /:
+    get:
+      tags:
+        - default
+      summary: Default
+      operationId: default__get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /jumanpp/:
+    post:
+      tags:
+        - jumanpp
+      summary: Jumanpp
+      operationId: jumanpp_jumanpp__get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Word"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /film_record/query/{film_record_id}:
+    get:
+      tags:
+        - film_record
+      summary: Film Record Query
+      operationId: film_record_query_film_record_query__film_record_id__get
+      parameters:
+        - required: true
+          schema:
+            title: Film Record Id
+            type: string
+          name: film_record_id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /film_record/query/:
+    get:
+      tags:
+        - film_record
+      summary: Film Records
+      operationId: film_records_film_record_query__get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /film_record/command/:
+    post:
+      tags:
+        - film_record
+      summary: Film Record Command
+      operationId: film_record_command_film_record_command__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FilmRecordCreateModel"
+        required: true
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+components:
+  schemas:
+    AppreciationStatusEnum:
+      title: AppreciationStatusEnum
+      enum:
+        - 鑑賞済み
+        - 未鑑賞
+      description: 鑑賞状況を扱う Enum
+    FilmAppreciationCreateModel:
+      title: FilmAppreciationCreateModel
+      type: object
+      properties:
+        medium:
+          allOf:
+            - $ref: "#/components/schemas/WatchMediumEnum"
+          description: 鑑賞媒体
+          example: Amazon Prime Video
+        appreciation_date:
+          title: Appreciation Date
+          type: string
+          description: 鑑賞日
+          format: date
+          default: "2016-12-25"
+          example: "2022-12-25"
+    FilmCreateModel:
+      title: FilmCreateModel
+      type: object
+      properties:
+        tmdb_id:
+          title: Tmdb Id
+          #exclusiveMinimum: 0
+          type: integer
+          description: TMDbのID
+          example: 281
+    FilmRecordCreateModel:
+      title: FilmRecordCreateModel
+      required:
+        - film
+      type: object
+      properties:
+        appreciation_status:
+          allOf:
+            - $ref: "#/components/schemas/AppreciationStatusEnum"
+          description: 映画の鑑賞状況. [鑑賞済み, 未鑑賞]のどちらかを取る.
+          default: 未鑑賞
+          example: 鑑賞済み
+        evaluation:
+          title: Evaluation
+          maximum: 5
+          #exclusiveMinimum: 0
+          type: integer
+          description: 映画に対する自身の評価. 0より大きい数字である必要がある.
+          default: 0
+          example: 4
+        note:
+          title: Note
+          maxLength: 300
+          type: string
+          description: 映画に対する自身の思い.
+          example: とっても良かった
+        film:
+          title: Film
+          allOf:
+            - $ref: "#/components/schemas/FilmCreateModel"
+          description: 映画createモデル
+        appreciations:
+          title: Appreciations
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmAppreciationCreateModel"
+          description: 映画鑑賞
+          default: []
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    WatchMediumEnum:
+      title: WatchMediumEnum
+      enum:
+        - Amazon Prime Video
+        - Netflix
+        - Disney+
+        - U-NEXT
+        - Theater
+        - dアニメストア
+      description: 視聴媒体を扱う Enum
+    Word:
+      title: Word
+      required:
+        - target
+      type: object
+      properties:
+        target:
+          title: Target
+          type: string
