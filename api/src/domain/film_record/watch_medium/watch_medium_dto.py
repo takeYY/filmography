@@ -33,3 +33,11 @@ class WatchMediumDTO:
     ) -> WatchMediumEnum:
         watch_medium_id = notion_watch_media.get_medium_id(relation_id=notion_relation.id)
         return WatchMediumDTO.from_medium_id2watch_medium_enum(medium_id=watch_medium_id)
+
+    @staticmethod
+    def from_str2watch_medium_enum(medium_str: str) -> WatchMediumEnum:
+        for medium in WatchMediumEnum:
+            if medium_str == medium.value:
+                return medium
+
+        raise ValueError(f"{medium_str}に合致する鑑賞媒体が存在しません。")
