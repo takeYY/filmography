@@ -15,3 +15,11 @@ app.include_router(default_router, tags=["default"])
 app.include_router(jumanpp_router, prefix="/jumanpp", tags=["jumanpp"])
 app.include_router(film_record_query_router, prefix="/film_record/query", tags=["film_record"])
 app.include_router(film_record_command_router, prefix="/film_record/command", tags=["film_record"])
+
+
+# フロントのテンプレ
+from fastapi.staticfiles import StaticFiles
+from src.front_templates.apps.index import front_index_router
+
+app.mount("/src/front_templates/static", StaticFiles(directory="src/front_templates/static"), name="static")
+app.include_router(front_index_router)
