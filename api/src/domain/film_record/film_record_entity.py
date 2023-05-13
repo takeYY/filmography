@@ -88,11 +88,14 @@ class FilmRecordEntity:
     def get_film_run_time(self) -> int:
         return self.film.run_time
 
-    def get_film_series_object(self) -> FilmSeriesObject:
+    def get_film_series_object(self) -> FilmSeriesObject | None:
         return self.film.series
 
     def get_film_poster_object(self) -> FilmPosterObject:
         return self.film.poster
+
+    def get_film_poster(self) -> str:
+        return self.film.poster.get_600x900()
 
     def get_film_genres(self) -> set[FilmGenreEnum]:
         return self.film.genres
