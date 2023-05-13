@@ -39,7 +39,7 @@ class FilmEntity:
         overview: str,
         release_date: date,
         run_time: int,
-        series: FilmSeriesObject,
+        series: FilmSeriesObject | None,
         poster: FilmPosterObject,
         genres: set[FilmGenreEnum],
     ):
@@ -51,6 +51,6 @@ class FilmEntity:
         self.overview: str = overview
         self.release_date: date = release_date
         self.run_time: int = run_time
-        self.series: FilmSeriesObject = series
+        self.series: FilmSeriesObject | None = series
         self.poster: FilmPosterObject = poster
         self.genres: set[FilmGenreEnum] = genres
