@@ -53,3 +53,16 @@ class FilmGenreDTO:
             film_genre_enum_set.add(film_genre_enum)
 
         return film_genre_enum_set
+
+    @staticmethod
+    def from_list2film_genre_enum_set(genre_str_list: list[str]) -> set[FilmGenreEnum]:
+        genres: set = set()
+
+        for genre in FilmGenreEnum:
+            if genre.value in genre_str_list:
+                genres.add(genre)
+
+        if not genres:
+            raise ValueError(f"{genre_str_list}に合致するジャンルが存在しません。")
+
+        return genres

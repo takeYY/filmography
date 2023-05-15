@@ -14,9 +14,12 @@ class NotionRelationData:
     relation: list[NotionRelationIdData]
     has_more: bool
 
-    def get_relation_id(self) -> str:
+    def get_relation_id(self) -> str | None:
         if 1 < len(self.relation):
             raise ValueError("relationが複数あります。")
+
+        if not self.relation:
+            return None
 
         return self.relation[0].id
 

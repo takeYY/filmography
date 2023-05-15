@@ -1,3 +1,6 @@
+# 標準ライブラリ
+from datetime import datetime
+
 # 独自ライブラリ
 from src.data_model.notion.film_record.notion_film_record_data import NotionFilmRecordData
 from src.data_model.notion.genre.notion_genre_data import NotionGenreData
@@ -28,15 +31,19 @@ class FilmRecordDto:
         film_records: list[FilmRecordEntity] = []
         for notion_film_record_result in notion_film_record.results:
             # 映画シリーズを定義
-            film_series_result: NotionSeriesResultData = notion_film_series.get_series(
-                relation_id=notion_film_record_result.properties.Series.get_relation_id()
-            )
-            film_series = FilmSeriesObject(
-                name=film_series_result.properties.Name.get_title(),
-                poster=FilmPosterObject(
-                    poster_url=film_series_result.properties.Poster.get_file_external_url(),
-                ),
-            )
+            series_relation: str | None = notion_film_record_result.properties.Series.get_relation_id()
+            if series_relation:
+                film_series_result: NotionSeriesResultData = notion_film_series.get_series(
+                    relation_id=series_relation,
+                )
+                film_series = FilmSeriesObject(
+                    name=film_series_result.properties.Name.get_title(),
+                    poster=FilmPosterObject(
+                        poster_url=film_series_result.properties.Poster.get_file_external_url(),
+                    ),
+                )
+            else:
+                film_series = None
             # 映画視聴履歴を定義
             film_appreciations: list[FilmAppreciationEntity] = [
                 FilmAppreciationEntity(
@@ -81,6 +88,66 @@ class FilmRecordDto:
                         ),
                     ),
                     evaluation=notion_film_record_result.properties.Rating.number,
+                    film_appreciations=film_appreciations,
+                )
+            )
+
+        return film_records
+
+    @staticmethod
+    def from_json2film_record_entity(json_data: dict) -> list[FilmRecordEntity]:
+        results: list = json_data["result"]
+        film_records: list[FilmRecordEntity] = []
+
+        for result in results:
+            # 映画シリーズを定義
+            series: dict | None = result["film"].get("series", {})
+            if series:
+                film_series = FilmSeriesObject(
+                    name=series.get("name", ""),
+                    poster=FilmPosterObject(
+                        poster_url=series.get("poster", {}).get("poster_url", ""),
+                    ),
+                )
+            else:
+                film_series = None
+            # 映画視聴履歴を定義
+            appreciations: list[dict] = result.get("film_appreciations", [{}])
+            film_appreciations: list[FilmAppreciationEntity] = [
+                FilmAppreciationEntity(
+                    film_appreciation_id=FilmAppreciationIdObject(
+                        value=appreciation.get("film_appreciation_id", {}).get("value", ""),
+                    ),
+                    medium=WatchMediumDTO.from_str2watch_medium_enum(medium_str=appreciation.get("medium", "")),
+                    appreciation_date=datetime.strptime(appreciation.get("appreciation_date", ""), "%Y-%m-%d"),
+                )
+                for appreciation in appreciations
+            ]
+            film: dict = result["film"]
+            film_records.append(
+                FilmRecordEntity(
+                    film_record_id=FilmRecordIdObject(value=result["film_record_id"]),
+                    appreciation_status=(
+                        AppreciationStatusEnum.WATCHED
+                        if result["appreciation_status"] == "鑑賞済み"
+                        else AppreciationStatusEnum.NOT_WATCHED
+                    ),
+                    note=result["note"],
+                    film=FilmEntity(
+                        tmdb_id=TmdbIdObject(
+                            value=film["tmdb_id"]["value"],
+                        ),
+                        title=film["title"],
+                        overview=film["overview"],
+                        release_date=film["release_date"],
+                        run_time=film["run_time"],
+                        series=film_series,
+                        poster=FilmPosterObject(
+                            poster_url=film.get("poster", {}).get("poster_url", ""),
+                        ),
+                        genres=FilmGenreDTO.from_list2film_genre_enum_set(genre_str_list=film.get("genres", [])),
+                    ),
+                    evaluation=result["evaluation"],
                     film_appreciations=film_appreciations,
                 )
             )
