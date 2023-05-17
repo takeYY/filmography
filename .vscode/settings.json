@@ -37,7 +37,26 @@
     "UMCS",
     "pytest",
     "openapi",
-    "redoc"
+    "redoc",
+    "pydantic",
+    "mrph_index",
+    "mrph_id",
+    "prev_mrph_id",
+    "doukei",
+    "midasi",
+    "yomi",
+    "genkei",
+    "hinsi",
+    "hinsi_id",
+    "bunrui",
+    "bunrui_id",
+    "katuyou1",
+    "katuyou1_id",
+    "katuyou2",
+    "katuyou2_id",
+    "imis",
+    "fstring",
+    "repname"
   ],
   "python.analysis.typeCheckingMode": "basic"
 }
