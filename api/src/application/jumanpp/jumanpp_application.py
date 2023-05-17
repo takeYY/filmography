@@ -1,37 +1,41 @@
 # 標準ライブラリ
 from abc import ABC, abstractmethod
+from logging import getLogger
 
 # 外部ライブラリ
 from pyknp import Juman
 
 # 独自ライブラリ
-from schemas.word.word import Word
+from src.schemas.jumanpp import JumanppResult, WordRequest
+
+logger = getLogger(__name__)
 
 
 class JumanppApplication(ABC):
     @abstractmethod
-    async def morphological_analysis(self, target: Word) -> dict[str, str]:
+    async def morphological_analysis(
+        self,
+        target: WordRequest,
+    ) -> list[JumanppResult] | list[None]:
         raise NotImplementedError
 
 
 class ImplJumanppApplication(JumanppApplication):
     def __init__(self):
-        print("application init")
+        logger.info("jumanpp application init")
 
-    async def morphological_analysis(self, word: Word) -> dict[str, str]:
+    async def morphological_analysis(
+        self,
+        word: WordRequest,
+    ) -> list[JumanppResult] | list[None]:
         try:
-            print("application analysis")
+            logger.info("application analysis")
+
             juman = Juman()
             result = juman.analysis(word.target)
-            result_list = result.mrph_list()
+            result_list: list[JumanppResult] = result.mrph_list()
 
-            return dict(
-                status="success",
-                result=result_list,
-            )
+            return result_list
         except Exception as e:
-            print(e)
-            return dict(
-                status="error",
-                result=str(e),
-            )
+            logger.exception(e)
+            return list()
