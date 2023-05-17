@@ -20,25 +20,32 @@ paths:
       tags:
         - jumanpp
       summary: Jumanpp
-      operationId: jumanpp_jumanpp__get
+      operationId: jumanpp_jumanpp__post
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Word"
+              $ref: "#/components/schemas/WordRequest"
         required: true
       responses:
         "200":
-          description: Successful Response
+          description: 形態素解析の結果
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: "#/components/schemas/JumanppResponse"
         "422":
           description: Validation Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/HTTPValidationError"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JumanppSystemError"
   /film_record/query/{film_record_id}:
     get:
       tags:
@@ -100,6 +107,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HTTPValidationError"
+  /front/index:
+    get:
+      tags:
+        - front
+      summary: Home
+      operationId: home_front_index_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            text/html:
+              schema:
+                type: string
 components:
   schemas:
     AppreciationStatusEnum:
@@ -130,7 +150,7 @@ components:
       properties:
         tmdb_id:
           title: Tmdb Id
-          #exclusiveMinimum: 0
+          minimum: 0
           type: integer
           description: TMDbのID
           example: 281
@@ -149,7 +169,7 @@ components:
         evaluation:
           title: Evaluation
           maximum: 5
-          #exclusiveMinimum: 0
+          minimum: 0
           type: integer
           description: 映画に対する自身の評価. 0より大きい数字である必要がある.
           default: 0
@@ -181,6 +201,174 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ValidationError"
+    JumanppResponse:
+      title: JumanppResponse
+      required:
+        - results
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        results:
+          title: Results
+          type: array
+          items:
+            $ref: "#/components/schemas/JumanppResult"
+    JumanppResult:
+      title: JumanppResult
+      required:
+        - mrph_index
+        - mrph_id
+        - prev_mrph_id
+        - span
+        - doukei
+        - midasi
+        - yomi
+        - genkei
+        - hinsi
+        - hinsi_id
+        - bunrui
+        - bunrui_id
+        - katuyou1
+        - katuyou1_id
+        - katuyou2
+        - katuyou2_id
+        - imis
+        - fstring
+        - repname
+        - ranks
+      type: object
+      properties:
+        mrph_index:
+          title: Mrph Index
+          minimum: 1
+          type: integer
+          description: 形態素のインデックス
+          example: 1
+        mrph_id:
+          title: Mrph Id
+          minimum: 1
+          type: integer
+          description: 形態素ID
+          example: 1
+        prev_mrph_id:
+          title: Prev Mrph Id
+          type: integer
+          description: 前の形態素ID
+          example: 0
+        span:
+          title: Span
+          type: array
+          items:
+            type: integer
+          description: "???"
+          example:
+            - 0
+            - 0
+        doukei:
+          title: Doukei
+          type: array
+          items: {}
+          description: "???"
+          example: []
+        midasi:
+          title: Midasi
+          type: string
+          description: 見出し
+          example: 待つ
+        yomi:
+          title: Yomi
+          type: string
+          description: 読み
+          example: まつ
+        genkei:
+          title: Genkei
+          type: string
+          description: 原形
+          example: 待つ
+        hinsi:
+          title: Hinsi
+          type: string
+          description: 品詞
+          example: 動詞
+        hinsi_id:
+          title: Hinsi Id
+          type: integer
+          description: 品詞ID
+          example: 2
+        bunrui:
+          title: Bunrui
+          type: string
+          description: 品詞細分類
+          example: "*"
+        bunrui_id:
+          title: Bunrui Id
+          type: integer
+          description: 品詞細分類ID
+          example: 0
+        katuyou1:
+          title: Katuyou1
+          type: string
+          description: 活用型
+          example: 子音動詞タ行
+        katuyou1_id:
+          title: Katuyou1 Id
+          type: integer
+          description: 活用型ID
+          example: 6
+        katuyou2:
+          title: Katuyou2
+          type: string
+          description: 活用形
+          example: 基本形
+        katuyou2_id:
+          title: Katuyou2 Id
+          type: integer
+          description: 活用形ID
+          example: 2
+        imis:
+          title: Imis
+          type: string
+          description: 意味情報
+          example: 代表表記:待つ/まつ
+        fstring:
+          title: Fstring
+          type: string
+          description: "???"
+          example: ""
+        repname:
+          title: Repname
+          type: string
+          description: 代表表記
+          example: 待つ/まつ
+        ranks:
+          title: Ranks
+          type: array
+          items:
+            type: integer
+          description: "???"
+          example:
+            - 1
+    JumanppSystemError:
+      title: JumanppSystemError
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: error
+          example: error
+        error:
+          title: Error
+          type: string
+          description: エラー情報
+          default: システムエラー
+          example: システムエラー
     ValidationError:
       title: ValidationError
       required:
@@ -212,8 +400,8 @@ components:
         - Theater
         - dアニメストア
       description: 視聴媒体を扱う Enum
-    Word:
-      title: Word
+    WordRequest:
+      title: WordRequest
       required:
         - target
       type: object
@@ -221,3 +409,5 @@ components:
         target:
           title: Target
           type: string
+          description: 形態素解析の対象文字列
+          example: すもももももももものうち
