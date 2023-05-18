@@ -1,7 +1,8 @@
 openapi: 3.0.2
 info:
   title: Filmography API
-  version: 0.1.0
+  description: FilmographyのAPI
+  version: 0.1.1.1
 paths:
   /:
     get:
@@ -11,10 +12,11 @@ paths:
       operationId: default__get
       responses:
         "200":
-          description: Successful Response
+          description: デフォルトの結果
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: "#/components/schemas/DefaultResponse"
   /jumanpp/:
     post:
       tags:
@@ -128,6 +130,22 @@ components:
         - 鑑賞済み
         - 未鑑賞
       description: 鑑賞状況を扱う Enum
+    DefaultResponse:
+      title: DefaultResponse
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        message:
+          title: Message
+          type: string
+          description: メッセージ
+          default: Hello, world!
+          example: Hello, world!
     FilmAppreciationCreateModel:
       title: FilmAppreciationCreateModel
       type: object
