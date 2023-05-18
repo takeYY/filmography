@@ -8,7 +8,11 @@ from src.presentation.film_record.command.film_record_command_route import film_
 from src.presentation.film_record.query.film_record_query_route import film_record_query_router
 from src.presentation.jumanpp.jumanpp_route import jumanpp_router
 
-app = FastAPI()
+app = FastAPI(
+    title="Filmography API",
+    description="FilmographyのAPI",
+    version="0.1.1.1",
+)
 Container()
 
 app.include_router(default_router, tags=["default"])
