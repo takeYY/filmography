@@ -56,7 +56,11 @@
     "katuyou2_id",
     "imis",
     "fstring",
-    "repname"
+    "repname",
+    "jsonable",
+    "juman",
+    "pyknp",
+    "mrph"
   ],
   "python.analysis.typeCheckingMode": "basic"
 }
