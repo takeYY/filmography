@@ -63,16 +63,23 @@ paths:
           in: path
       responses:
         "200":
-          description: Successful Response
+          description: 映画記録の単一レスポンス
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: "#/components/schemas/FilmRecordResponse"
         "422":
           description: Validation Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/HTTPValidationError"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordSystemError"
   /film_record/query/:
     get:
       tags:
@@ -81,10 +88,17 @@ paths:
       operationId: film_records_film_record_query__get
       responses:
         "200":
-          description: Successful Response
+          description: 映画記録の複数レスポンス
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: "#/components/schemas/FilmRecordsResponse"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordSystemError"
   /film_record/command/:
     post:
       tags:
@@ -162,6 +176,27 @@ components:
           format: date
           default: "2016-12-25"
           example: "2022-12-25"
+    FilmAppreciationModel:
+      title: FilmAppreciationModel
+      required:
+        - film_appreciation_id
+        - appreciation_date
+      type: object
+      properties:
+        film_appreciation_id:
+          title: Film Appreciation Id
+          type: string
+        medium:
+          allOf:
+            - $ref: "#/components/schemas/WatchMediumEnum"
+          description: 鑑賞媒体
+          example: Amazon Prime Video
+        appreciation_date:
+          title: Appreciation Date
+          type: string
+          description: 鑑賞日
+          format: date
+          example: "2020-01-01"
     FilmCreateModel:
       title: FilmCreateModel
       type: object
@@ -172,6 +207,84 @@ components:
           type: integer
           description: TMDbのID
           example: 281
+    FilmGenreEnum:
+      title: FilmGenreEnum
+      enum:
+        - アクション
+        - アドベンチャー
+        - アニメーション
+        - コメディ
+        - クライム
+        - ドキュメンタリー
+        - ドラマ
+        - ファミリー
+        - ファンタジー
+        - ヒストリー
+        - ホラー
+        - 音楽
+        - ミステリー
+        - ロマンス
+        - SF
+        - TV
+        - スリラー
+        - 戦争
+        - 西部劇
+      description: 映画ジャンルを扱う Enum
+    FilmModel:
+      title: FilmModel
+      required:
+        - tmdb_id
+        - title
+        - overview
+        - release_date
+        - run_time
+        - series
+        - poster
+        - genres
+      type: object
+      properties:
+        tmdb_id:
+          $ref: "#/components/schemas/TmdbIdModel"
+        title:
+          title: Title
+          type: string
+          description: タイトル
+          example: ターミネーター
+        overview:
+          title: Overview
+          type: string
+          description: 概要
+          example: アメリカのとある街、深夜突如奇怪な放電と共に屈強な肉体をもった男が現れる...
+        release_date:
+          title: Release Date
+          type: string
+          description: 公開日
+          format: date
+          example: "1985-05-04"
+        run_time:
+          title: Run Time
+          type: integer
+          description: 上映時間
+          example: "108"
+        series:
+          $ref: "#/components/schemas/FilmSeriesModel"
+        poster:
+          $ref: "#/components/schemas/FilmPosterModel"
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmGenreEnum"
+    FilmPosterModel:
+      title: FilmPosterModel
+      required:
+        - poster_url
+      type: object
+      properties:
+        poster_url:
+          title: Poster Url
+          type: string
+          description: 映画のポスターURL
+          example: /tAB6R81LkJjUMCS8aMFwt2CM2vS.jpg
     FilmRecordCreateModel:
       title: FilmRecordCreateModel
       required:
@@ -210,6 +323,126 @@ components:
             $ref: "#/components/schemas/FilmAppreciationCreateModel"
           description: 映画鑑賞
           default: []
+    FilmRecordIdModel:
+      title: FilmRecordIdModel
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          title: Value
+          type: string
+          description: 映画記録のID
+          example: "1"
+    FilmRecordResponse:
+      title: FilmRecordResponse
+      required:
+        - result
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        result:
+          $ref: "#/components/schemas/FilmRecordResult"
+      description: 映画記録の単一レスポンス
+    FilmRecordResult:
+      title: FilmRecordResult
+      required:
+        - film_record_id
+        - appreciation_status
+        - evaluation
+        - note
+        - film
+        - film_appreciations
+      type: object
+      properties:
+        film_record_id:
+          $ref: "#/components/schemas/FilmRecordIdModel"
+        appreciation_status:
+          title: Appreciation Status
+          type: string
+          description: 鑑賞状況
+          example: 鑑賞済み
+        evaluation:
+          title: Evaluation
+          type: integer
+          description: 評価
+          example: 5
+        note:
+          title: Note
+          type: string
+          description: 感想など
+          example: 最高のエンターテインメント作品！
+        film:
+          $ref: "#/components/schemas/FilmModel"
+        film_appreciations:
+          title: Film Appreciations
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmAppreciationModel"
+    FilmRecordSystemError:
+      title: FilmRecordSystemError
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: error
+          example: error
+        error:
+          title: Error
+          type: string
+          description: エラー情報
+          default: システムエラー
+          example: システムエラー
+    FilmRecordsResponse:
+      title: FilmRecordsResponse
+      required:
+        - results
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        results:
+          title: Results
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmRecordResult"
+      description: 映画記録の複数レスポンス
+    FilmSeriesModel:
+      title: FilmSeriesModel
+      required:
+        - name
+        - poster
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+          description: 映画シリーズ名
+          example: ターミネーターシリーズ
+        poster:
+          $ref: "#/components/schemas/FilmSeriesPosterModel"
+    FilmSeriesPosterModel:
+      title: FilmSeriesPosterModel
+      required:
+        - poster_url
+      type: object
+      properties:
+        poster_url:
+          title: Poster Url
+          type: string
+          description: 映画シリーズのポスターURL
+          example: /kpZxdNsAV7qTdTLwKM5NLqa7GEo.jpg
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -387,6 +620,17 @@ components:
           description: エラー情報
           default: システムエラー
           example: システムエラー
+    TmdbIdModel:
+      title: TmdbIdModel
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          title: Value
+          type: string
+          description: TMDbのID
+          example: "218"
     ValidationError:
       title: ValidationError
       required:
