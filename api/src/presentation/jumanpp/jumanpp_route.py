@@ -1,6 +1,6 @@
 # 外部ライブラリ
 from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
@@ -16,12 +16,11 @@ logger = setup_logger(__name__)
 
 @jumanpp_router.post(
     "/",
+    response_model=JumanppResponse,
+    response_description="形態素解析の結果",
+    status_code=status.HTTP_200_OK,
     responses={
-        200: {
-            "description": "形態素解析の結果",
-            "model": JumanppResponse,
-        },
-        500: {
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
             "description": "システムエラー",
             "model": JumanppSystemError,
         },
@@ -32,26 +31,27 @@ async def jumanpp(
     word: WordRequest,
     jumanpp_application: JumanppApplication = Depends(Provide[Container.jumanpp_application]),
 ):
-    # TODO: このエンドポイントのログを修正したい
-    logger.info("jumanpp router start")
+    try:
+        # TODO: このエンドポイントのログを修正したい
+        logger.info("jumanpp router start")
 
-    logger.info(f"target: {word.target}")
-    return_response = await jumanpp_application.morphological_analysis(word)
+        logger.info(f"target: {word.target}")
+        return_response = await jumanpp_application.morphological_analysis(word)
+        logger.info(f"jumanpp results: {return_response}")
 
-    if not return_response:
         return JSONResponse(
-            status_code=500,
+            content=dict(
+                status="success",
+                results=jsonable_encoder(return_response),
+            )
+        )
+
+    except Exception as e:
+        logger.exception(e)
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content=dict(
                 status="error",
                 result="システムエラー",
             ),
         )
-
-    logger.info(f"jumanpp results: {return_response}")
-
-    return JSONResponse(
-        content=dict(
-            status="success",
-            results=jsonable_encoder(return_response),
-        )
-    )

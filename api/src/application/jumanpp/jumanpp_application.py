@@ -16,7 +16,7 @@ class JumanppApplication(ABC):
     async def morphological_analysis(
         self,
         target: WordRequest,
-    ) -> list[JumanppResult] | list[None]:
+    ) -> list[JumanppResult]:
         raise NotImplementedError
 
 
@@ -27,15 +27,17 @@ class ImplJumanppApplication(JumanppApplication):
     async def morphological_analysis(
         self,
         word: WordRequest,
-    ) -> list[JumanppResult] | list[None]:
+    ) -> list[JumanppResult]:
         try:
             logger.info("application analysis")
 
             juman = Juman()
             result = juman.analysis(word.target)
             result_list: list[JumanppResult] = result.mrph_list()
+            if not result_list:
+                raise ValueError("形態素解析結果がありません.")
 
             return result_list
-        except Exception as e:
-            logger.exception(e)
-            return list()
+
+        except Exception:
+            raise
