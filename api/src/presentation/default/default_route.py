@@ -1,5 +1,6 @@
 # 外部ライブラリ
 from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 
 # 独自ライブラリ
 from src.schemas.default import DefaultResponse
@@ -17,7 +18,9 @@ default_router = APIRouter()
     },
 )
 async def default():
-    return dict(
-        status="success",
-        message="Hello, world!",
+    return JSONResponse(
+        content=dict(
+            status="success",
+            message="Hello, world!",
+        )
     )
