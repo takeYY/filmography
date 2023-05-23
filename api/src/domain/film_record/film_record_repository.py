@@ -12,7 +12,7 @@ class IFilmRecordRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get_film_records(self):
+    def get_film_records(self):  # TODO: 返り値を定義する
         raise NotImplementedError
 
     @abstractmethod

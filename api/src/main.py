@@ -17,7 +17,7 @@ Container()
 
 app.include_router(default_router, tags=["default"])
 app.include_router(jumanpp_router, tags=["jumanpp"])
-app.include_router(film_record_query_router, prefix="/film_record/query", tags=["film_record"])
+app.include_router(film_record_query_router, tags=["film_record"])
 app.include_router(film_record_command_router, prefix="/film_record/command", tags=["film_record"])
 
 
