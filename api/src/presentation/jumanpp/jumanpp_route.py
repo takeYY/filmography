@@ -1,6 +1,7 @@
 # 外部ライブラリ
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
 # 独自ライブラリ
@@ -48,7 +49,9 @@ async def jumanpp(
 
     logger.info(f"jumanpp results: {return_response}")
 
-    return dict(
-        status="success",
-        results=return_response,
+    return JSONResponse(
+        content=dict(
+            status="success",
+            results=jsonable_encoder(return_response),
+        )
     )
