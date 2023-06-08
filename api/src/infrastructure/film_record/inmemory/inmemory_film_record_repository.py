@@ -4,7 +4,9 @@ from datetime import date
 from logging import getLogger
 
 # 外部ライブラリ
+from dataclass_wizard.type_def import JSONObject
 from notion_client import Client
+from notion_client.typing import SyncAsync
 
 # 独自ライブラリ
 from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
@@ -106,7 +108,7 @@ class ImplInmemoryFilmRecordRepository(IFilmRecordRepository):
         logger.warning(f"映画記録が見つかりませんでした. {id=}")
         return None
 
-    def get_film_records(self):
+    def get_film_records(self) -> SyncAsync[JSONObject]:
         # Notionの設定
         notion_token = os.environ["NOTION_TOKEN"]
         self.notion = Client(auth=notion_token)

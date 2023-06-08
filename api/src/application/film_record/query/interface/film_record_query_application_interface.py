@@ -24,5 +24,5 @@ class IFilmRecordQueryApplication(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def fetch_film_records(self):
+    async def fetch_film_records(self) -> list[FilmRecordEntity]:
         raise NotImplementedError

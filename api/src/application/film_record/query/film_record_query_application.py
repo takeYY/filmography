@@ -48,13 +48,12 @@ class ImplFilmRecordQueryApplication(IFilmRecordQueryApplication):
         except Exception:
             raise
 
-    async def fetch_film_records(self):
+    async def fetch_film_records(self) -> list[FilmRecordEntity]:
         try:
             logger.info("映画記録を一括取得: 開始")
             film_records = self.film_record_domain_service.get_film_records()
             logger.info("映画記録を一括取得: 終了")
 
-            # TODO: 型が Unknown なので定義する
             return film_records
 
         except Exception:
