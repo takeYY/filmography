@@ -2,7 +2,6 @@
 import os
 
 # 外部ライブラリ
-from dependency_injector import providers
 from dependency_injector.providers import Factory
 
 # 独自ライブラリ
@@ -25,7 +24,7 @@ class FilmRecordQueryContainer:
     film_record_query_application: Factory[IFilmRecordQueryApplication]
 
     if env == "PROD":
-        film_record_query_application = providers.Factory(
+        film_record_query_application = Factory(
             ImplFilmRecordQueryApplication,
             film_record_repository=ImplFilmRecordRepository(),
             film_genre_repository=ImplFilmGenreRepository(),
@@ -34,7 +33,7 @@ class FilmRecordQueryContainer:
             watch_medium_repository=ImplWatchMediumRepository(),
         )
     else:
-        film_record_query_application = providers.Factory(
+        film_record_query_application = Factory(
             ImplFilmRecordQueryApplication,
             film_record_repository=ImplInmemoryFilmRecordRepository(),
             film_genre_repository=ImplInmemoryFilmGenreRepository(),
