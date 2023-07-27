@@ -20,9 +20,9 @@ class IFilmRecordQueryApplication(ABC):
     async def fetch_film_record_by_id(
         self,
         id: str,
-    ) -> dict[str, str | FilmRecordEntity | None]:
+    ) -> FilmRecordEntity:
         raise NotImplementedError
 
     @abstractmethod
-    async def fetch_film_records(self):
+    async def fetch_film_records(self) -> list[FilmRecordEntity]:
         raise NotImplementedError

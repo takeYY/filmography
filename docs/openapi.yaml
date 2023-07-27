@@ -1,0 +1,675 @@
+openapi: 3.0.2
+info:
+  title: Filmography API
+  description: FilmographyのAPI
+  version: 0.1.1.1
+paths:
+  /:
+    get:
+      tags:
+        - default
+      summary: Default
+      operationId: default__get
+      responses:
+        "200":
+          description: デフォルトの結果
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DefaultResponse"
+  /jumanpp/:
+    post:
+      tags:
+        - jumanpp
+      summary: Jumanpp
+      operationId: jumanpp_jumanpp__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WordRequest"
+        required: true
+      responses:
+        "200":
+          description: 形態素解析の結果
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JumanppResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JumanppSystemError"
+  /film_record/query/{film_record_id}:
+    get:
+      tags:
+        - film_record
+      summary: Film Record Query
+      operationId: film_record_query_film_record_query__film_record_id__get
+      parameters:
+        - required: true
+          schema:
+            title: Film Record Id
+            type: string
+          name: film_record_id
+          in: path
+      responses:
+        "200":
+          description: 映画記録の単一レスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordResponse"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordSystemError"
+  /film_record/query/:
+    get:
+      tags:
+        - film_record
+      summary: Film Records
+      operationId: film_records_film_record_query__get
+      responses:
+        "200":
+          description: 映画記録の複数レスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordsResponse"
+        "500":
+          description: システムエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilmRecordSystemError"
+  /film_record/command/:
+    post:
+      tags:
+        - film_record
+      summary: Film Record Command
+      operationId: film_record_command_film_record_command__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FilmRecordCreateModel"
+        required: true
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /front/index:
+    get:
+      tags:
+        - front
+      summary: Home
+      operationId: home_front_index_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  schemas:
+    AppreciationStatusEnum:
+      title: AppreciationStatusEnum
+      enum:
+        - 鑑賞済み
+        - 未鑑賞
+      description: 鑑賞状況を扱う Enum
+    DefaultResponse:
+      title: DefaultResponse
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        message:
+          title: Message
+          type: string
+          description: メッセージ
+          default: Hello, world!
+          example: Hello, world!
+    FilmAppreciationCreateModel:
+      title: FilmAppreciationCreateModel
+      type: object
+      properties:
+        medium:
+          allOf:
+            - $ref: "#/components/schemas/WatchMediumEnum"
+          description: 鑑賞媒体
+          example: Amazon Prime Video
+        appreciation_date:
+          title: Appreciation Date
+          type: string
+          description: 鑑賞日
+          format: date
+          default: "2016-12-25"
+          example: "2022-12-25"
+    FilmAppreciationModel:
+      title: FilmAppreciationModel
+      required:
+        - film_appreciation_id
+        - appreciation_date
+      type: object
+      properties:
+        film_appreciation_id:
+          title: Film Appreciation Id
+          type: string
+        medium:
+          allOf:
+            - $ref: "#/components/schemas/WatchMediumEnum"
+          description: 鑑賞媒体
+          example: Amazon Prime Video
+        appreciation_date:
+          title: Appreciation Date
+          type: string
+          description: 鑑賞日
+          format: date
+          example: "2020-01-01"
+    FilmCreateModel:
+      title: FilmCreateModel
+      type: object
+      properties:
+        tmdb_id:
+          title: Tmdb Id
+          minimum: 0
+          type: integer
+          description: TMDbのID
+          example: 281
+    FilmGenreEnum:
+      title: FilmGenreEnum
+      enum:
+        - アクション
+        - アドベンチャー
+        - アニメーション
+        - コメディ
+        - クライム
+        - ドキュメンタリー
+        - ドラマ
+        - ファミリー
+        - ファンタジー
+        - ヒストリー
+        - ホラー
+        - 音楽
+        - ミステリー
+        - ロマンス
+        - SF
+        - TV
+        - スリラー
+        - 戦争
+        - 西部劇
+      description: 映画ジャンルを扱う Enum
+    FilmModel:
+      title: FilmModel
+      required:
+        - tmdb_id
+        - title
+        - overview
+        - release_date
+        - run_time
+        - series
+        - poster
+        - genres
+      type: object
+      properties:
+        tmdb_id:
+          $ref: "#/components/schemas/TmdbIdModel"
+        title:
+          title: Title
+          type: string
+          description: タイトル
+          example: ターミネーター
+        overview:
+          title: Overview
+          type: string
+          description: 概要
+          example: アメリカのとある街、深夜突如奇怪な放電と共に屈強な肉体をもった男が現れる...
+        release_date:
+          title: Release Date
+          type: string
+          description: 公開日
+          format: date
+          example: "1985-05-04"
+        run_time:
+          title: Run Time
+          type: integer
+          description: 上映時間
+          example: "108"
+        series:
+          $ref: "#/components/schemas/FilmSeriesModel"
+        poster:
+          $ref: "#/components/schemas/FilmPosterModel"
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmGenreEnum"
+    FilmPosterModel:
+      title: FilmPosterModel
+      required:
+        - poster_url
+      type: object
+      properties:
+        poster_url:
+          title: Poster Url
+          type: string
+          description: 映画のポスターURL
+          example: /tAB6R81LkJjUMCS8aMFwt2CM2vS.jpg
+    FilmRecordCreateModel:
+      title: FilmRecordCreateModel
+      required:
+        - film
+      type: object
+      properties:
+        appreciation_status:
+          allOf:
+            - $ref: "#/components/schemas/AppreciationStatusEnum"
+          description: 映画の鑑賞状況. [鑑賞済み, 未鑑賞]のどちらかを取る.
+          default: 未鑑賞
+          example: 鑑賞済み
+        evaluation:
+          title: Evaluation
+          maximum: 5
+          minimum: 0
+          type: integer
+          description: 映画に対する自身の評価. 0より大きい数字である必要がある.
+          default: 0
+          example: 4
+        note:
+          title: Note
+          maxLength: 300
+          type: string
+          description: 映画に対する自身の思い.
+          example: とっても良かった
+        film:
+          title: Film
+          allOf:
+            - $ref: "#/components/schemas/FilmCreateModel"
+          description: 映画createモデル
+        appreciations:
+          title: Appreciations
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmAppreciationCreateModel"
+          description: 映画鑑賞
+          default: []
+    FilmRecordIdModel:
+      title: FilmRecordIdModel
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          title: Value
+          type: string
+          description: 映画記録のID
+          example: "1"
+    FilmRecordResponse:
+      title: FilmRecordResponse
+      required:
+        - result
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        result:
+          $ref: "#/components/schemas/FilmRecordResult"
+      description: 映画記録の単一レスポンス
+    FilmRecordResult:
+      title: FilmRecordResult
+      required:
+        - film_record_id
+        - appreciation_status
+        - evaluation
+        - note
+        - film
+        - film_appreciations
+      type: object
+      properties:
+        film_record_id:
+          $ref: "#/components/schemas/FilmRecordIdModel"
+        appreciation_status:
+          title: Appreciation Status
+          type: string
+          description: 鑑賞状況
+          example: 鑑賞済み
+        evaluation:
+          title: Evaluation
+          type: integer
+          description: 評価
+          example: 5
+        note:
+          title: Note
+          type: string
+          description: 感想など
+          example: 最高のエンターテインメント作品！
+        film:
+          $ref: "#/components/schemas/FilmModel"
+        film_appreciations:
+          title: Film Appreciations
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmAppreciationModel"
+    FilmRecordSystemError:
+      title: FilmRecordSystemError
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: error
+          example: error
+        error:
+          title: Error
+          type: string
+          description: エラー情報
+          default: システムエラー
+          example: システムエラー
+    FilmRecordsResponse:
+      title: FilmRecordsResponse
+      required:
+        - results
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        results:
+          title: Results
+          type: array
+          items:
+            $ref: "#/components/schemas/FilmRecordResult"
+      description: 映画記録の複数レスポンス
+    FilmSeriesModel:
+      title: FilmSeriesModel
+      required:
+        - name
+        - poster
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+          description: 映画シリーズ名
+          example: ターミネーターシリーズ
+        poster:
+          $ref: "#/components/schemas/FilmSeriesPosterModel"
+    FilmSeriesPosterModel:
+      title: FilmSeriesPosterModel
+      required:
+        - poster_url
+      type: object
+      properties:
+        poster_url:
+          title: Poster Url
+          type: string
+          description: 映画シリーズのポスターURL
+          example: /kpZxdNsAV7qTdTLwKM5NLqa7GEo.jpg
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+    JumanppResponse:
+      title: JumanppResponse
+      required:
+        - results
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: success
+          example: success
+        results:
+          title: Results
+          type: array
+          items:
+            $ref: "#/components/schemas/JumanppResult"
+    JumanppResult:
+      title: JumanppResult
+      required:
+        - mrph_index
+        - mrph_id
+        - prev_mrph_id
+        - span
+        - doukei
+        - midasi
+        - yomi
+        - genkei
+        - hinsi
+        - hinsi_id
+        - bunrui
+        - bunrui_id
+        - katuyou1
+        - katuyou1_id
+        - katuyou2
+        - katuyou2_id
+        - imis
+        - fstring
+        - repname
+        - ranks
+      type: object
+      properties:
+        mrph_index:
+          title: Mrph Index
+          minimum: 1
+          type: integer
+          description: 形態素のインデックス
+          example: 1
+        mrph_id:
+          title: Mrph Id
+          minimum: 1
+          type: integer
+          description: 形態素ID
+          example: 1
+        prev_mrph_id:
+          title: Prev Mrph Id
+          type: integer
+          description: 前の形態素ID
+          example: 0
+        span:
+          title: Span
+          type: array
+          items:
+            type: integer
+          description: "???"
+          example:
+            - 0
+            - 0
+        doukei:
+          title: Doukei
+          type: array
+          items: {}
+          description: "???"
+          example: []
+        midasi:
+          title: Midasi
+          type: string
+          description: 見出し
+          example: 待つ
+        yomi:
+          title: Yomi
+          type: string
+          description: 読み
+          example: まつ
+        genkei:
+          title: Genkei
+          type: string
+          description: 原形
+          example: 待つ
+        hinsi:
+          title: Hinsi
+          type: string
+          description: 品詞
+          example: 動詞
+        hinsi_id:
+          title: Hinsi Id
+          type: integer
+          description: 品詞ID
+          example: 2
+        bunrui:
+          title: Bunrui
+          type: string
+          description: 品詞細分類
+          example: "*"
+        bunrui_id:
+          title: Bunrui Id
+          type: integer
+          description: 品詞細分類ID
+          example: 0
+        katuyou1:
+          title: Katuyou1
+          type: string
+          description: 活用型
+          example: 子音動詞タ行
+        katuyou1_id:
+          title: Katuyou1 Id
+          type: integer
+          description: 活用型ID
+          example: 6
+        katuyou2:
+          title: Katuyou2
+          type: string
+          description: 活用形
+          example: 基本形
+        katuyou2_id:
+          title: Katuyou2 Id
+          type: integer
+          description: 活用形ID
+          example: 2
+        imis:
+          title: Imis
+          type: string
+          description: 意味情報
+          example: 代表表記:待つ/まつ
+        fstring:
+          title: Fstring
+          type: string
+          description: "???"
+          example: ""
+        repname:
+          title: Repname
+          type: string
+          description: 代表表記
+          example: 待つ/まつ
+        ranks:
+          title: Ranks
+          type: array
+          items:
+            type: integer
+          description: "???"
+          example:
+            - 1
+    JumanppSystemError:
+      title: JumanppSystemError
+      type: object
+      properties:
+        status:
+          title: Status
+          type: string
+          description: ステータス
+          default: error
+          example: error
+        error:
+          title: Error
+          type: string
+          description: エラー情報
+          default: システムエラー
+          example: システムエラー
+    TmdbIdModel:
+      title: TmdbIdModel
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          title: Value
+          type: string
+          description: TMDbのID
+          example: "218"
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    WatchMediumEnum:
+      title: WatchMediumEnum
+      enum:
+        - Amazon Prime Video
+        - Netflix
+        - Disney+
+        - U-NEXT
+        - Theater
+        - dアニメストア
+      description: 視聴媒体を扱う Enum
+    WordRequest:
+      title: WordRequest
+      required:
+        - target
+      type: object
+      properties:
+        target:
+          title: Target
+          type: string
+          description: 形態素解析の対象文字列
+          example: すもももももももものうち

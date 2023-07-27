@@ -31,7 +31,7 @@ class ImplFilmRecordQueryDomainService(IFilmRecordQueryDomainService):
         self.film_watch_history_repository: IFilmWatchHistoryRepository = film_watch_history_repository
         self.watch_medium_repository: IWatchMediumRepository = watch_medium_repository
 
-    def get_film_records(self):
+    def get_film_records(self) -> list[FilmRecordEntity]:
         # 映画記録をNotionから取得し、データクラスに変換
         notion_film_records = self.film_record_repository.get_film_records()
         notion_film_record_data = NotionFilmRecordData.from_dict(notion_film_records)
