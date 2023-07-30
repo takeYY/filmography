@@ -11,8 +11,8 @@ class NotionWatchMediumData(JSONWizard):
     results: list[NotionWatchMediumResultData]
     next_cursor: str | None
     has_more: bool
-    type: Literal["page"]
-    page: dict
+    type: Literal["page_or_database"]
+    page_or_database: dict
 
     def get_medium_id(self, relation_id: str) -> int:
         for result in self.results:

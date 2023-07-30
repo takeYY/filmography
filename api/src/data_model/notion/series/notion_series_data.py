@@ -11,8 +11,8 @@ class NotionSeriesData(JSONWizard):
     results: list[NotionSeriesResultData]
     next_cursor: str | None
     has_more: bool
-    type: Literal["page"]
-    page: dict
+    type: Literal["page_or_database"]
+    page_or_database: dict
 
     def get_series(self, relation_id: str) -> NotionSeriesResultData:
         for result in self.results:

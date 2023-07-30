@@ -11,8 +11,8 @@ class NotionGenreData(JSONWizard):
     results: list[NotionGenreResultData]
     next_cursor: str | None
     has_more: bool
-    type: Literal["page"]
-    page: dict
+    type: Literal["page_or_database"]
+    page_or_database: dict
 
     def get_tmdb_genre_id(self, relation_id: str) -> int:
         for result in self.results:
