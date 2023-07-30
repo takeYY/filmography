@@ -1,3 +1,7 @@
+from .film.genre.film_genre_repository import IFilmGenreRepository
+from .film.series.film_series_repository import IFilmSeriesRepository
 from .film_record_entity import FilmRecordEntity
 from .film_record_id_object import FilmRecordIdObject
 from .film_record_repository import IFilmRecordRepository
+from .watch_history.watch_history_repository import IFilmWatchHistoryRepository
+from .watch_medium.watch_medium_repository import IWatchMediumRepository

@@ -3,11 +3,15 @@ from logging import getLogger
 
 # 独自ライブラリ
 from src.application.film_record.query.interface import IFilmRecordQueryApplication, IFilmRecordQueryDomainService
-from src.domain.film_record import FilmRecordEntity, FilmRecordIdObject, IFilmRecordRepository
-from src.domain.film_record.film.genre import IFilmGenreRepository
-from src.domain.film_record.film.series import IFilmSeriesRepository
-from src.domain.film_record.watch_history import IFilmWatchHistoryRepository
-from src.domain.film_record.watch_medium import IWatchMediumRepository
+from src.domain.film_record import (
+    FilmRecordEntity,
+    FilmRecordIdObject,
+    IFilmGenreRepository,
+    IFilmRecordRepository,
+    IFilmSeriesRepository,
+    IFilmWatchHistoryRepository,
+    IWatchMediumRepository,
+)
 
 from .film_record_query_domain_service import ImplFilmRecordQueryDomainService
 
