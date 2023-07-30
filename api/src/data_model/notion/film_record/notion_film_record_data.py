@@ -11,5 +11,5 @@ class NotionFilmRecordData(JSONWizard):
     results: list[NotionResultData]
     next_cursor: str | None
     has_more: bool
-    type: Literal["page"]
-    page: dict
+    type: Literal["page_or_database"]
+    page_or_database: dict

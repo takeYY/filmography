@@ -7,16 +7,18 @@ from dependency_injector.providers import Factory
 # 独自ライブラリ
 from src.application.film_record.query import ImplFilmRecordQueryApplication
 from src.application.film_record.query.interface import IFilmRecordQueryApplication
-from src.infrastructure.film_record import ImplFilmRecordRepository
-from src.infrastructure.film_record.genre import ImplFilmGenreRepository
-from src.infrastructure.film_record.genre.inmemory import ImplInmemoryFilmGenreRepository
-from src.infrastructure.film_record.inmemory import ImplInmemoryFilmRecordRepository
-from src.infrastructure.film_record.series import ImplFilmSeriesRepository
-from src.infrastructure.film_record.series.inmemory import ImplInmemoryFilmSeriesRepository
-from src.infrastructure.film_record.watch_history import ImplFilmWatchHistoryRepository
-from src.infrastructure.film_record.watch_history.inmemory import ImplInmemoryFilmWatchHistoryRepository
-from src.infrastructure.film_record.watch_medium import ImplWatchMediumRepository
-from src.infrastructure.film_record.watch_medium.inmemory import ImplInmemoryWatchMediumRepository
+from src.infrastructure.film_record import (
+    ImplFilmGenreRepository,
+    ImplFilmRecordRepository,
+    ImplFilmSeriesRepository,
+    ImplFilmWatchHistoryRepository,
+    ImplInmemoryFilmGenreRepository,
+    ImplInmemoryFilmRecordRepository,
+    ImplInmemoryFilmSeriesRepository,
+    ImplInmemoryFilmWatchHistoryRepository,
+    ImplInmemoryWatchMediumRepository,
+    ImplWatchMediumRepository,
+)
 
 
 class FilmRecordQueryContainer:

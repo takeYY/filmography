@@ -8,12 +8,15 @@ from src.data_model.notion.genre.notion_genre_data import NotionGenreData
 from src.data_model.notion.series.notion_series_data import NotionSeriesData
 from src.data_model.notion.watch_history.notion_watch_history_data import NotionWatchHistoryData
 from src.data_model.notion.watch_medium.notion_watch_medium_data import NotionWatchMediumData
-from src.domain.film_record import FilmRecordEntity, IFilmRecordRepository
+from src.domain.film_record import (
+    FilmRecordEntity,
+    IFilmGenreRepository,
+    IFilmRecordRepository,
+    IFilmSeriesRepository,
+    IFilmWatchHistoryRepository,
+    IWatchMediumRepository,
+)
 from src.domain.film_record.dto import FilmRecordDto
-from src.domain.film_record.film.genre import IFilmGenreRepository
-from src.domain.film_record.film.series import IFilmSeriesRepository
-from src.domain.film_record.watch_history import IFilmWatchHistoryRepository
-from src.domain.film_record.watch_medium import IWatchMediumRepository
 
 
 class ImplFilmRecordQueryDomainService(IFilmRecordQueryDomainService):
@@ -25,11 +28,11 @@ class ImplFilmRecordQueryDomainService(IFilmRecordQueryDomainService):
         film_watch_history_repository: IFilmWatchHistoryRepository,
         watch_medium_repository: IWatchMediumRepository,
     ):
-        self.film_record_repository: IFilmRecordRepository = film_record_repository
-        self.film_genre_repository: IFilmGenreRepository = film_genre_repository
-        self.film_series_repository: IFilmSeriesRepository = film_series_repository
-        self.film_watch_history_repository: IFilmWatchHistoryRepository = film_watch_history_repository
-        self.watch_medium_repository: IWatchMediumRepository = watch_medium_repository
+        self.film_record_repository = film_record_repository
+        self.film_genre_repository = film_genre_repository
+        self.film_series_repository = film_series_repository
+        self.film_watch_history_repository = film_watch_history_repository
+        self.watch_medium_repository = watch_medium_repository
 
     def get_film_records(self) -> list[FilmRecordEntity]:
         # 映画記録をNotionから取得し、データクラスに変換

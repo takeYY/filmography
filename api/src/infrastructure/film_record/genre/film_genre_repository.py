@@ -8,7 +8,7 @@ from notion_client import Client
 from notion_client.typing import SyncAsync
 
 # 独自ライブラリ
-from src.domain.film_record.film.genre import IFilmGenreRepository
+from src.domain.film_record import IFilmGenreRepository
 
 # 定数
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
@@ -19,8 +19,8 @@ logger = getLogger(__name__)
 
 class ImplFilmGenreRepository(IFilmGenreRepository):
     def __init__(self):
+        logger.debug("filmGenreRepo: init")
         # Notionの設定
-        self.notion = Client(auth=NOTION_TOKEN)
         self.notion_film_genre_id = FILM_GENRE_DB_ID
 
     def get_genres(self) -> SyncAsync[JSONObject]:
@@ -29,4 +29,5 @@ class ImplFilmGenreRepository(IFilmGenreRepository):
         query: dict[str, str] = dict(database_id=self.notion_film_genre_id)
         logger.info("Notionから映画ジャンルを取得する処理: 終了")
 
-        return self.notion.databases.query(**query)
+        notion = Client(auth=NOTION_TOKEN)  # NOTE: initで定義してはいけない
+        return notion.databases.query(**query)
