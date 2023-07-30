@@ -12,6 +12,8 @@ from src.presentation import Container
 from src.schemas.film_record import FilmRecordResponse, FilmRecordsResponse, FilmRecordSystemError
 from src.utils import setup_logger
 
+logger = setup_logger(__name__)
+
 
 @film_record_query_router.get(
     "/{film_record_id}",
@@ -32,7 +34,6 @@ async def film_record_query(
         Provide[Container.film_record_query_application]
     ),
 ):
-    logger = setup_logger(__name__)
     try:
         logger.info("映画記録のクエリ: 開始")
 
@@ -79,7 +80,6 @@ async def film_records(
         Provide[Container.film_record_query_application]
     ),
 ):
-    logger = setup_logger(__name__)
     try:
         logger.info("映画記録のクエリ: 開始")
         film_records = await film_record_query_application.fetch_film_records()
