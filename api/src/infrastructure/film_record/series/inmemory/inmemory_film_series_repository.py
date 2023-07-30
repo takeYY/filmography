@@ -19,8 +19,8 @@ logger = getLogger(__name__)
 
 class ImplInmemoryFilmSeriesRepository(IFilmSeriesRepository):
     def __init__(self) -> None:
+        logger.debug("【inmemory】FilmSeriesRepo: init")
         # Notionの設定
-        self.notion = Client(auth=NOTION_TOKEN)
         self.notion_dev_film_series_id = DEV_FILM_SERIES_DB_ID
 
     def get_series(self) -> SyncAsync[JSONObject]:
@@ -28,4 +28,5 @@ class ImplInmemoryFilmSeriesRepository(IFilmSeriesRepository):
         query: dict[str, str] = dict(database_id=self.notion_dev_film_series_id)
         logger.info("【inmemory】Notionから映画シリーズを取得する処理: 終了")
 
-        return self.notion.databases.query(**query)
+        notion = Client(auth=NOTION_TOKEN)  # NOTE: initで定義してはいけない
+        return notion.databases.query(**query)
