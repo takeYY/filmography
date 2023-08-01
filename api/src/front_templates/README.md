@@ -2,6 +2,11 @@
 
 FastAPI の templates 機能を利用したフロント部分の実装を行うところ
 
+## ルーティング
+
+- :railway_track: `/front/index`
+  - Home 画面
+
 ## ディレクトリ構成
 
 - :file_folder: apps
