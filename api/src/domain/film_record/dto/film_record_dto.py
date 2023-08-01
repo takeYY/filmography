@@ -96,7 +96,7 @@ class FilmRecordDto:
 
     @staticmethod
     def from_json2film_record_entity(json_data: dict) -> list[FilmRecordEntity]:
-        results: list = json_data["result"]
+        results: list = json_data["results"]
         film_records: list[FilmRecordEntity] = []
 
         for result in results:
