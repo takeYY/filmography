@@ -3,8 +3,10 @@ from dependency_injector import containers
 from dependency_injector.providers import Factory
 
 # 独自ライブラリ
+from src.application.film.query.interface import AbstractFilmQueryApplication
 from src.application.film_record.command.interface import IFilmRecordCommandApplication
 from src.application.film_record.query.interface import IFilmRecordQueryApplication
+from src.presentation.film.query import FilmQueryContainer
 from src.presentation.film_record.command import FilmRecordCommandContainer
 from src.presentation.film_record.query import FilmRecordQueryContainer
 
@@ -18,6 +20,7 @@ class Container(containers.DeclarativeContainer):
             # ".jumanpp.jumanpp_route",
             ".film_record.query.film_record_query_route",
             ".film_record.command.film_record_command_route",
+            ".film.query.film_query_route",
         ]
     )
 
@@ -30,3 +33,5 @@ class Container(containers.DeclarativeContainer):
     film_record_command_application: Factory[
         IFilmRecordCommandApplication
     ] = FilmRecordCommandContainer.film_record_command_application
+
+    film_query_application: Factory[AbstractFilmQueryApplication] = FilmQueryContainer.film_query_application
