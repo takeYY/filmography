@@ -26,7 +26,9 @@ app.include_router(film_query_router, tags=["film"])
 
 # フロントのテンプレ
 from fastapi.staticfiles import StaticFiles
+from src.front_templates.apps.film_record.create_film_record import front_create_film_record_router
 from src.front_templates.apps.index import front_index_router
 
 app.mount("/src/front_templates/static", StaticFiles(directory="src/front_templates/static"), name="static")
 app.include_router(front_index_router)
+app.include_router(front_create_film_record_router)
