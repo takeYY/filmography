@@ -56,17 +56,44 @@
 
     {# form #}
     <div class='container-fluid'>
-      <form method=post>
+      <form method=post class="mb-4">
         <div class='my-4 row'>
           {# 画面左側 #}
-          <div class='col-md-4'>
+          <div class='col-md-3'>
             {# ポスター画像 #}
             <img src={{ film.get_poster_image() }}
-                class='img-fluid' width='100%'>
+                class='img-fluid' width="100%">
+
+            {# 映画公開日と上映時間 #}
+            <div class="row">
+              <div class="col-sm-6">
+                公開日:
+                <div class="text-info">
+                  {{ film.get_release_date_form() }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                上映時間:
+                <div class="text-info">
+                  {{ film.get_run_time_form() }}
+                </div>
+              </div>
+            </div>
+
+            <hr> {# ----- #}
+
+            {# 映画概要 #}
+            概要:
+            <div class='row'>
+              <div class="col-sm-12 text-info">
+                {{ film.get_overview() }}
+              </div>
+            </div>
+
           </div>
 
           {# 画面右側 #}
-          <div class='col-md-8'>
+          <div class='col-md-9'>
             {# 映画タイトル #}
             <div class='form-group row'>
               <label class='col-sm-4 col-form-label d-flex align-items-center'>
