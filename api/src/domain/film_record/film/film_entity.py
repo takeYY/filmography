@@ -54,3 +54,21 @@ class FilmEntity:
         self.series: FilmSeriesObject | None = series
         self.poster: FilmPosterObject = poster
         self.genres: set[FilmGenreEnum] = genres
+
+    def get_title(self):
+        return self.title
+
+    def get_overview(self):
+        return self.overview
+
+    def get_release_date_form(self) -> str:
+        return self.release_date.strftime("%Y/%m/%d")
+
+    def get_run_time_form(self):
+        return f"{self.run_time}分"
+
+    def get_poster_image(self):
+        return self.poster.get_600x900()
+
+    def get_genres(self):
+        return self.genres

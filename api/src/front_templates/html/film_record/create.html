@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ url_for('static', path='favicon.png') }}" id="favicon">
+
+    {# Bootstrap CDN #}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    {# 独自スタイル #}
+    <link href="{{ url_for('static', path='styles.css') }}" rel="stylesheet" />
+
+    <title>Filmography</title>
+  </head>
+
+  <body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href={{ url_for("home") }}>Filmography</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="container pb-4">
+      <h3 class="text-center">Create</h3>
+    </div>
+
+    {# form #}
+    <div class='container-fluid'>
+      <form method=post class="mb-4">
+        <div class='my-4 row'>
+          {# 画面左側 #}
+          <div class='col-md-3'>
+            {# ポスター画像 #}
+            <img src={{ film.get_poster_image() }}
+                class='img-fluid' width="100%">
+
+            {# 映画公開日と上映時間 #}
+            <div class="row">
+              <div class="col-sm-6">
+                公開日:
+                <div class="text-info">
+                  {{ film.get_release_date_form() }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                上映時間:
+                <div class="text-info">
+                  {{ film.get_run_time_form() }}
+                </div>
+              </div>
+            </div>
+
+            <hr> {# ----- #}
+
+            {# 映画概要 #}
+            概要:
+            <div class='row'>
+              <div class="col-sm-12 text-info">
+                {{ film.get_overview() }}
+              </div>
+            </div>
+
+          </div>
+
+          {# 画面右側 #}
+          <div class='col-md-9'>
+            {# 映画タイトル #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-danger'>
+                  必須
+                </div>
+                　タイトル
+              </label>
+              <div class='col-sm-8'>
+                <input type='text' class='form-control w-75 bg-dark text-light' name='title'
+                    value={{ film.get_title() }} required>
+              </div>
+            </div>
+
+            {# ステータス #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-danger'>
+                  必須
+                </div>
+                　ステータス
+              </label>
+              <div class='col-sm-8 d-flex align-items-center'>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='radio' name='status' id='status-watched' value='Watched' checked>
+                  <label class='form-check-label' for='status-watched'>Watched</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='radio' name='status' id='status-to-watch' value='To Watch'>
+                  <label class='form-check-label' for='status-to-watch'>To Watch</label>
+                </div>
+              </div>
+            </div>
+
+            <hr> {# ----- #}
+
+            {# 評価 #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-secondary'>
+                  任意
+                </div>
+                　評価
+              </label>
+              <div class='col-sm-8'>
+                <select name='rating' class='form-control bg-dark text-light'>
+                  <option value='0'>-</option>
+                  {% for i in range(5) %}
+                    <option value={{ loop.revindex }}>
+                          {{loop.revindex}}: {{ '★'*loop.revindex }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            {# ジャンル #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-secondary'>
+                  任意
+                </div>
+                　ジャンル
+              </label>
+              <div class='col-sm-8 d-flex align-items-center'>
+                <div class='px-3 row'>
+                  {% for key, enum in genres.items() %}
+                    <div class='form-check form-check-inline col-md-4'>
+                      <input class='form-check-input' type='checkbox' name='genres' id='genre-{{key}}' value={{enum.value}}
+                          {{ 'checked' if enum in film.get_genres() else '' }}>
+                      <label class='form-check-label' for='genre-{{key}}'>{{enum.value}}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <hr> {# ----- #}
+
+            {# 鑑賞日 #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-secondary'>
+                  任意
+                </div>
+                　鑑賞日
+              </label>
+              <div class='col-sm-8'>
+                <input type='date' class='form-control w-50 bg-dark text-light' name='last-watched-at'>
+              </div>
+            </div>
+
+            {# 感想 #}
+            <div class='form-group row'>
+              <label class='col-sm-4 col-form-label d-flex align-items-center'>
+                <div class='badge badge-secondary'>
+                  任意
+                </div>
+                　感想
+              </label>
+              <div class='col-sm-8'>
+                <textarea class='form-control bg-dark text-light'
+                    name='feeling'></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class='text-center'>
+          <button type='submit' class='btn btn-primary w-25'>映画記録を追加</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
